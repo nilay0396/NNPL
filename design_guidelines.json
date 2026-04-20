@@ -1,0 +1,139 @@
+{
+  "theme": {
+    "mode": "light",
+    "archetype": "Archetype 4: Swiss & High-Contrast (Premium Industrial Adaptation)",
+    "rationale": "Large corporates and government tenders require a highly credible, authoritative, and serious presentation. The Light theme ensures dense technical data (testing parameters, waste categories) is highly legible. The deep navy structural elements provide the gravitas of a large industrial infrastructure company, while emerald green acts as a high-contrast trigger for conversions (WhatsApp/Quote)."
+  },
+  "brand": {
+    "name": "NilayNarayan Polychem LLP",
+    "identity": "Industrial company in Speciality Chemicals Manufacturing, Authorized Hazardous Waste Management & Recycling, and NABL Accredited Environmental Testing Lab"
+  },
+  "colors": {
+    "background": {
+      "default": "#F8FAFC",
+      "paper": "#FFFFFF",
+      "dark_structural": "#0B192C"
+    },
+    "primary": {
+      "main": "#047857",
+      "hover": "#065F46",
+      "light": "#D1FAE5"
+    },
+    "neutral": {
+      "900": "#0F172A",
+      "700": "#334155",
+      "500": "#64748B",
+      "200": "#E2E8F0",
+      "50": "#F8FAFC"
+    },
+    "accents": {
+      "steel": "#94A3B8",
+      "safety_yellow": "#F59E0B"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "headings": "Cabinet Grotesk, sans-serif",
+      "body": "IBM Plex Sans, sans-serif",
+      "mono": "IBM Plex Mono, monospace"
+    },
+    "hierarchy": {
+      "h1": "text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none text-slate-900",
+      "h1_dark": "text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight leading-none text-white",
+      "h2": "text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-slate-900",
+      "h3": "text-xl sm:text-2xl font-semibold tracking-tight text-slate-900",
+      "body": "text-base leading-relaxed text-slate-700",
+      "label": "text-xs font-semibold tracking-[0.2em] uppercase text-slate-500"
+    }
+  },
+  "layout": {
+    "spacing_system": "Generous spacing. Use p-8, p-12, py-20, py-32 for sections to convey premium scale.",
+    "grid_strategy": {
+      "marketing": "Bento Grid Mode A (Tetris) for Services and About sections to create visual tension.",
+      "dashboard": "Control Room Grid (Mode B) for the Admin panel to maximize data density."
+    },
+    "surfaces": {
+      "cards": "Flat background (bg-white), 1px subtle border (border-slate-200), no default shadow. Sharp corners (rounded-none or max rounded-sm).",
+      "header": "Crystal Glass variant: bg-white/95 backdrop-blur-xl border-b border-slate-200. Sticky top-0 z-50.",
+      "dark_sections": "bg-[#0B192C] text-white. Use grain texture overlay if possible."
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-[#047857] text-white hover:bg-[#065F46] rounded-sm font-semibold transition-colors duration-200",
+      "secondary": "bg-transparent border border-slate-300 text-slate-700 hover:bg-slate-50 rounded-sm font-semibold",
+      "whatsapp": "fixed bottom-6 right-6 z-50 rounded-full shadow-lg hover:scale-105 transition-transform bg-[#25D366] text-white p-3"
+    },
+    "shadcn_customization": {
+      "instructions": "Override default Vercel aesthetic. Set radii to 0px or 2px. Remove soft drop shadows. Use 1px solid borders. Use IBM Plex Sans for all form inputs and data tables.",
+      "required_components": ["button", "card", "input", "textarea", "form", "dialog", "sheet", "table", "tabs"]
+    }
+  },
+  "motion": {
+    "philosophy": "Minimalist and precise. No bouncy animations. Industrial design demands precision.",
+    "hover_states": "Interactive cards translate-y-[-4px], border color changes to primary (#047857), add shadow-md.",
+    "page_transitions": "Subtle fade in.",
+    "libraries": ["framer-motion", "react-fast-marquee"]
+  },
+  "icons_and_assets": {
+    "icon_library": "lucide-react (primary) and @phosphor-icons/react (for specific industrial icons)",
+    "image_urls": {
+      "hero_bg": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/07dc2c71-76dd-4bb3-b84f-ee529563dce1/images/fa0b84fe426a04210fd17427c272575bcf16386208812eef71f0001ad6434fd0.png",
+        "category": "Hero Background",
+        "description": "Premium industrial facility at dusk, to be used with a deep navy gradient overlay."
+      },
+      "process_flow_bg": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/07dc2c71-76dd-4bb3-b84f-ee529563dce1/images/9528ad4a508796202f21ab2685ffa667c51e6bc5d3c5acea98f6034372b9d0a0.png",
+        "category": "Section Background",
+        "description": "Abstract 3D topographical process network, use behind the Process Flow diagram."
+      },
+      "lab_testing": {
+        "url": "https://static.prod-images.emergentagent.com/jobs/07dc2c71-76dd-4bb3-b84f-ee529563dce1/images/74a82acf2b38e23257c524e80361e30d55e42d0d0c0279ee7add42a143e5f5d5.png",
+        "category": "Service Image",
+        "description": "High-tech environmental testing lab macro shot for the NABL Lab section."
+      },
+      "industrial_warehouse": {
+        "url": "https://images.pexels.com/photos/236705/pexels-photo-236705.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "About/Infrastructure",
+        "description": "Expansive industrial warehouse interior for the About us or Vision/Mission section."
+      },
+      "lab_scientist": {
+        "url": "https://images.pexels.com/photos/8851086/pexels-photo-8851086.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "NABL Lab Details",
+        "description": "Close-up of a scientist conducting an experiment."
+      },
+      "hazardous_waste_handling": {
+        "url": "https://images.pexels.com/photos/8770248/pexels-photo-8770248.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940",
+        "category": "Hazardous Waste Section",
+        "description": "Worker in a protective suit monitoring pollution."
+      }
+    }
+  },
+  "pages_and_features": {
+    "Home": {
+      "hero": "H1: Integrated Hazardous Waste Management & Environmental Solutions. CTAs: Request Quote, Contact Us. Use hero_bg image.",
+      "about_snapshot": "Bento grid layout with high-level stats (e.g., Years of Experience, Waste Managed).",
+      "core_services": "2 large cards (Hazardous Waste Mgmt, NABL Lab) with sharp borders.",
+      "process_flow": "Horizontal timeline diagram overlaid on the abstract process_flow_bg.",
+      "industries_served": "Grid of minimal cards with industrial icons.",
+      "certifications": "Minimalist banner with high contrast."
+    },
+    "About": "Vision, Mission, Infrastructure highlight using the industrial_warehouse image.",
+    "Services": "Parent page for services. Hazardous Waste Mgmt: Detailed capabilities (TSDF, Co-processing). NABL Lab: Scope of testing, sample collection info using lab_testing and lab_scientist images.",
+    "Products": "Grid of products with 'Download TDS/SDS' small buttons.",
+    "Projects_Certifications": "Grid/List of case studies. Certifications with PDF download links.",
+    "Contact_Us": "Contact form with multiple fields + Call/WhatsApp/Email buttons + Google Maps embed.",
+    "Admin_Panel": "Dark sidebar (#0B192C) with white main content area. Dashboard for reviewing submitted enquiries."
+  },
+  "instructions_to_main_agent": [
+    "Install and configure fonts: Cabinet Grotesk (headings) and IBM Plex Sans (body). Use next/font or standard imports.",
+    "Set up Tailwind colors exactly as specified in the palette.",
+    "Ensure all interactive elements have data-testid attributes for testing.",
+    "Use pure HTML/Tailwind for marketing layouts (bento grids, overlapping elements). Only use Shadcn for forms, inputs, dialogs, and tables.",
+    "Implement Floating WhatsApp CTA and a Sticky Header with the Crystal Glass effect.",
+    "Do NOT use placeholder images (e.g., via.placeholder.com). Strictly use the images provided in the image_urls block.",
+    "Make sure forms have proper hover, focus, and disabled states.",
+    "Apply 'Grid Borders' layout (border-collapse style) for repetitive feature grids to look more technical and industrial rather than standard isolated cards."
+  ]
+}
