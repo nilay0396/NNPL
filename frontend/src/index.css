@@ -1,115 +1,233 @@
+@import url('https://api.fontshare.com/v2/css?f[]=cabinet-grotesk@400,500,700,800,900&f[]=satoshi@400,500,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+    --background: 210 40% 98%;
+    --foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --primary: 161 94% 24%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 210 40% 96%;
+    --secondary-foreground: 222 47% 11%;
+    --muted: 210 40% 96%;
+    --muted-foreground: 215 16% 47%;
+    --accent: 210 40% 96%;
+    --accent-foreground: 222 47% 11%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 214 32% 91%;
+    --input: 214 32% 91%;
+    --ring: 161 94% 24%;
+    --radius: 0.125rem;
+}
+
+* {
+    border-color: hsl(var(--border));
+}
+
+html,
+body,
+#root {
+    background: #f8fafc;
+}
+
 body {
     margin: 0;
-    font-family:
-        -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-        sans-serif;
+    font-family: 'IBM Plex Sans', system-ui, -apple-system, sans-serif;
+    color: #0f172a;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    font-feature-settings: "ss01", "cv01";
 }
 
-code {
-    font-family:
-        source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+code,
+pre,
+.font-mono {
+    font-family: 'IBM Plex Mono', ui-monospace, SFMono-Regular, monospace;
 }
 
-@layer base {
-    :root {
-        --background: 0 0% 100%;
-        --foreground: 0 0% 3.9%;
-        --card: 0 0% 100%;
-        --card-foreground: 0 0% 3.9%;
-        --popover: 0 0% 100%;
-        --popover-foreground: 0 0% 3.9%;
-        --primary: 0 0% 9%;
-        --primary-foreground: 0 0% 98%;
-        --secondary: 0 0% 96.1%;
-        --secondary-foreground: 0 0% 9%;
-        --muted: 0 0% 96.1%;
-        --muted-foreground: 0 0% 45.1%;
-        --accent: 0 0% 96.1%;
-        --accent-foreground: 0 0% 9%;
-        --destructive: 0 84.2% 60.2%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 89.8%;
-        --input: 0 0% 89.8%;
-        --ring: 0 0% 3.9%;
-        --chart-1: 12 76% 61%;
-        --chart-2: 173 58% 39%;
-        --chart-3: 197 37% 24%;
-        --chart-4: 43 74% 66%;
-        --chart-5: 27 87% 67%;
-        --radius: 0.5rem;
-    }
-    .dark {
-        --background: 0 0% 3.9%;
-        --foreground: 0 0% 98%;
-        --card: 0 0% 3.9%;
-        --card-foreground: 0 0% 98%;
-        --popover: 0 0% 3.9%;
-        --popover-foreground: 0 0% 98%;
-        --primary: 0 0% 98%;
-        --primary-foreground: 0 0% 9%;
-        --secondary: 0 0% 14.9%;
-        --secondary-foreground: 0 0% 98%;
-        --muted: 0 0% 14.9%;
-        --muted-foreground: 0 0% 63.9%;
-        --accent: 0 0% 14.9%;
-        --accent-foreground: 0 0% 98%;
-        --destructive: 0 62.8% 30.6%;
-        --destructive-foreground: 0 0% 98%;
-        --border: 0 0% 14.9%;
-        --input: 0 0% 14.9%;
-        --ring: 0 0% 83.1%;
-        --chart-1: 220 70% 50%;
-        --chart-2: 160 60% 45%;
-        --chart-3: 30 80% 55%;
-        --chart-4: 280 65% 60%;
-        --chart-5: 340 75% 55%;
+.font-display {
+    font-family: 'Cabinet Grotesk', 'IBM Plex Sans', sans-serif;
+    letter-spacing: -0.02em;
+}
+
+.nn-eyebrow {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #047857;
+}
+
+.nn-eyebrow-light {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: #6ee7b7;
+}
+
+.nn-section {
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+}
+@media (min-width: 768px) {
+    .nn-section {
+        padding-top: 7rem;
+        padding-bottom: 7rem;
     }
 }
 
-@layer base {
-    * {
-        @apply border-border;
-    }
-    body {
-        @apply bg-background text-foreground;
+.nn-container {
+    width: 100%;
+    max-width: 1320px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+}
+@media (min-width: 768px) {
+    .nn-container {
+        padding-left: 2rem;
+        padding-right: 2rem;
     }
 }
 
-@layer base {
-    [data-debug-wrapper="true"] {
-        display: contents !important;
-    }
+.nn-grid-border > * {
+    border-right: 1px solid #e2e8f0;
+    border-bottom: 1px solid #e2e8f0;
+}
+.nn-grid-border {
+    border-left: 1px solid #e2e8f0;
+    border-top: 1px solid #e2e8f0;
+}
 
-    [data-debug-wrapper="true"] > * {
-        margin-left: inherit;
-        margin-right: inherit;
-        margin-top: inherit;
-        margin-bottom: inherit;
-        padding-left: inherit;
-        padding-right: inherit;
-        padding-top: inherit;
-        padding-bottom: inherit;
-        column-gap: inherit;
-        row-gap: inherit;
-        gap: inherit;
-        border-left-width: inherit;
-        border-right-width: inherit;
-        border-top-width: inherit;
-        border-bottom-width: inherit;
-        border-left-style: inherit;
-        border-right-style: inherit;
-        border-top-style: inherit;
-        border-bottom-style: inherit;
-        border-left-color: inherit;
-        border-right-color: inherit;
-        border-top-color: inherit;
-        border-bottom-color: inherit;
+/* Grain overlay for dark sections */
+.nn-grain::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.06;
+    background-image: url("data:image/svg+xml;utf8,<svg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+    mix-blend-mode: overlay;
+}
+
+/* Hero dashed grid */
+.nn-dashed-grid {
+    background-image:
+        linear-gradient(to right, rgba(148,163,184,0.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148,163,184,0.08) 1px, transparent 1px);
+    background-size: 64px 64px;
+}
+
+.nn-reveal {
+    opacity: 0;
+    transform: translateY(12px);
+    animation: nn-reveal 0.7s ease-out forwards;
+}
+@keyframes nn-reveal {
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
+}
+
+.nn-reveal-delay-1 { animation-delay: 0.1s; }
+.nn-reveal-delay-2 { animation-delay: 0.2s; }
+.nn-reveal-delay-3 { animation-delay: 0.3s; }
+.nn-reveal-delay-4 { animation-delay: 0.4s; }
+
+.nn-link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #047857;
+    border-bottom: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+.nn-link-arrow:hover {
+    color: #065F46;
+    border-bottom-color: #065F46;
+}
+.nn-link-arrow svg {
+    transition: transform 0.2s ease;
+}
+.nn-link-arrow:hover svg {
+    transform: translateX(4px);
+}
+
+/* Card hover */
+.nn-card {
+    background: #ffffff;
+    border: 1px solid #e2e8f0;
+    transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.nn-card:hover {
+    transform: translateY(-4px);
+    border-color: #047857;
+    box-shadow: 0 10px 40px -20px rgba(4, 120, 87, 0.3);
+}
+
+/* Selection */
+::selection {
+    background: #047857;
+    color: #ffffff;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f5f9;
+}
+::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Hero overlay gradient */
+.nn-hero-overlay {
+    background: linear-gradient(
+        105deg,
+        rgba(11, 25, 44, 0.94) 0%,
+        rgba(11, 25, 44, 0.86) 40%,
+        rgba(11, 25, 44, 0.55) 100%
+    );
+}
+
+.nn-floating-whatsapp {
+    box-shadow: 0 10px 30px -10px rgba(37, 211, 102, 0.6), 0 0 0 6px rgba(37, 211, 102, 0.08);
+}
+
+.nn-pulse-ring::after {
+    content: '';
+    position: absolute;
+    inset: -6px;
+    border-radius: 9999px;
+    border: 2px solid rgba(37, 211, 102, 0.4);
+    animation: nn-pulse 2s ease-out infinite;
+}
+@keyframes nn-pulse {
+    0% { transform: scale(0.95); opacity: 1; }
+    100% { transform: scale(1.35); opacity: 0; }
+}
+
+[data-debug-wrapper="true"] {
+    display: contents !important;
 }
