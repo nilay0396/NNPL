@@ -89,12 +89,12 @@ export default function AdminDashboard() {
                 <div className="nn-grain" />
                 <div className="relative p-6 border-b border-white/10">
                     <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-[#047857] flex items-center justify-center">
-                            <span className="font-display font-black">NN</span>
+                        <div className="w-11 h-11 bg-white p-1 flex items-center justify-center">
+                            <img src="/logo.jpg" alt="NN Polychem" className="w-full h-full object-contain" />
                         </div>
                         <div>
-                            <div className="font-display font-bold leading-tight">Admin</div>
-                            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-300">Console</div>
+                            <div className="font-display font-bold leading-tight">NN Polychem</div>
+                            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-emerald-300">Admin Console</div>
                         </div>
                     </div>
                 </div>

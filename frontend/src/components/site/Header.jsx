@@ -54,16 +54,17 @@ export default function Header() {
             >
                 <div className="nn-container flex items-center justify-between h-16 md:h-20">
                     <Link to="/" className="flex items-center gap-3 group" data-testid="logo-link">
-                        <div className="relative w-10 h-10 flex items-center justify-center bg-[#0B192C] text-white">
-                            <span className="font-display font-black text-lg tracking-tighter">NN</span>
-                            <span className="absolute -bottom-1 -right-1 w-3 h-3 bg-[#047857]" />
-                        </div>
+                        <img
+                            src={COMPANY.logo}
+                            alt={COMPANY.name}
+                            className="w-11 h-11 md:w-12 md:h-12 object-contain flex-shrink-0"
+                        />
                         <div className="hidden sm:flex flex-col leading-none">
                             <span className="font-display font-bold text-[15px] text-slate-900 tracking-tight">
-                                NilayNarayan Polychem
+                                NilayNarayan Polychem LLP
                             </span>
-                            <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-slate-500 mt-0.5">
-                                Polychem LLP · Est. Industrial
+                            <span className="text-[10px] font-mono uppercase tracking-[0.18em] text-emerald-700 mt-0.5">
+                                Integrated Environmental Solutions
                             </span>
                         </div>
                     </Link>

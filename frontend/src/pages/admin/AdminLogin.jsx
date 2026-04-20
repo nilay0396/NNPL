@@ -39,8 +39,8 @@ export default function AdminLogin() {
                 <div className="absolute inset-0 nn-dashed-grid opacity-50" />
                 <div className="nn-grain" />
                 <div className="relative flex items-center gap-3">
-                    <div className="w-11 h-11 bg-[#047857] flex items-center justify-center">
-                        <span className="font-display font-black text-white text-lg">NN</span>
+                    <div className="w-12 h-12 bg-white p-1 flex items-center justify-center">
+                        <img src="/logo.jpg" alt="NN Polychem" className="w-full h-full object-contain" />
                     </div>
                     <div className="font-display font-bold text-lg tracking-tight">NilayNarayan Polychem LLP</div>
                 </div>
@@ -60,8 +60,8 @@ export default function AdminLogin() {
             <div className="flex items-center justify-center p-6 sm:p-10">
                 <div className="w-full max-w-md">
                     <div className="flex items-center gap-3 mb-10 lg:hidden">
-                        <div className="w-10 h-10 bg-[#0B192C] text-white flex items-center justify-center">
-                            <span className="font-display font-black text-sm">NN</span>
+                        <div className="w-11 h-11 bg-white border border-slate-200 p-1">
+                            <img src="/logo.jpg" alt="NN Polychem" className="w-full h-full object-contain" />
                         </div>
                         <div className="font-display font-bold">NN Polychem Admin</div>
                     </div>

@@ -11,8 +11,8 @@ export default function Footer() {
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-10">
                     <div className="md:col-span-4">
                         <div className="flex items-center gap-3 mb-5">
-                            <div className="w-11 h-11 bg-[#047857] flex items-center justify-center">
-                                <span className="font-display font-black text-white text-lg">NN</span>
+                            <div className="w-14 h-14 bg-white p-1 flex items-center justify-center">
+                                <img src={COMPANY.logo} alt={COMPANY.name} className="w-full h-full object-contain" />
                             </div>
                             <div>
                                 <div className="font-display font-bold text-white text-lg tracking-tight">
@@ -99,8 +99,8 @@ export default function Footer() {
                     <div className="font-mono">
                         © {new Date().getFullYear()} NilayNarayan Polychem LLP. All rights reserved.
                     </div>
-                    <div className="flex items-center gap-4 font-mono">
-                        <span>CIN: {COMPANY.cin}</span>
+                    <div className="flex items-center gap-4 font-mono flex-wrap">
+                        <span>PAN: {COMPANY.pan}</span>
                         <span className="w-px h-3 bg-white/20" />
                         <span>GST: {COMPANY.gst}</span>
                         <span className="w-px h-3 bg-white/20" />

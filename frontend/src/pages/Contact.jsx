@@ -58,19 +58,22 @@ export default function Contact() {
                             One call away from an industrial response team.
                         </h2>
                         <div className="mt-8 space-y-4">
-                            <a
-                                href={`tel:${COMPANY.phoneRaw}`}
-                                data-testid="contact-call-btn"
-                                className="nn-card p-5 flex items-center gap-4 group"
-                            >
-                                <div className="w-12 h-12 bg-[#0B192C] text-emerald-300 flex items-center justify-center">
-                                    <Phone className="w-5 h-5" />
-                                </div>
-                                <div>
-                                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#047857]">Call Now</div>
-                                    <div className="font-display font-bold text-slate-900">{COMPANY.phone}</div>
-                                </div>
-                            </a>
+                            {COMPANY.phones.map((p) => (
+                                <a
+                                    key={p.raw}
+                                    href={`tel:${p.raw}`}
+                                    data-testid={`contact-call-btn-${p.label.toLowerCase()}`}
+                                    className="nn-card p-5 flex items-center gap-4 group"
+                                >
+                                    <div className="w-12 h-12 bg-[#0B192C] text-emerald-300 flex items-center justify-center">
+                                        <Phone className="w-5 h-5" />
+                                    </div>
+                                    <div className="flex-1">
+                                        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#047857]">{p.label}</div>
+                                        <div className="font-display font-bold text-slate-900">{p.number}</div>
+                                    </div>
+                                </a>
+                            ))}
                             <a
                                 href={whatsappHref()}
                                 target="_blank"
@@ -94,9 +97,9 @@ export default function Contact() {
                                 <div className="w-12 h-12 bg-[#047857] text-white flex items-center justify-center">
                                     <Mail className="w-5 h-5" />
                                 </div>
-                                <div>
+                                <div className="min-w-0">
                                     <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#047857]">Email</div>
-                                    <div className="font-display font-bold text-slate-900">{COMPANY.email}</div>
+                                    <div className="font-display font-bold text-slate-900 truncate">{COMPANY.email}</div>
                                 </div>
                             </a>
                         </div>
@@ -185,8 +188,8 @@ export default function Contact() {
                     <div className="relative w-full h-[420px] border border-slate-200 overflow-hidden bg-[#0B192C]">
                         <iframe
                             data-testid="contact-map-iframe"
-                            title="NN Polychem location"
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d235234.38879447436!2d72.74109996499722!3d21.52253374555525!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be04e0a23f0fffb%3A0x8eb08c4dd6e0c8d5!2sAnkleshwar%2C%20Gujarat!5e0!3m2!1sen!2sin!4v1700000000000"
+                            title="NN Polychem — Kandra Industrial Area, Govindpur, Dhanbad"
+                            src="https://www.google.com/maps?q=Kandra+Industrial+Area+Govindpur+Dhanbad+828109&output=embed"
                             className="absolute inset-0 w-full h-full grayscale contrast-[1.1]"
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
