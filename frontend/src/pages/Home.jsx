@@ -129,10 +129,10 @@ export default function Home() {
                             <div className="border border-white/15 bg-white/[0.03] backdrop-blur-sm">
                                 <div className="grid grid-cols-2">
                                     {[
-                                        { k: "15+", v: "Years of industrial operations" },
-                                        { k: "50K+", v: "Tonnes waste managed / yr" },
-                                        { k: "12K+", v: "Lab samples tested" },
-                                        { k: "250+", v: "Industrial clients served" },
+                                        { k: "2L+", v: "TPA authorised capacity" },
+                                        { k: "5", v: "Waste categories · Sched I–III" },
+                                        { k: "NABL", v: "Accredited environmental lab" },
+                                        { k: "24×7", v: "Operations & response" },
                                     ].map((s) => (
                                         <div
                                             key={s.v}

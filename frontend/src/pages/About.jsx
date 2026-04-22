@@ -126,10 +126,10 @@ export default function About() {
                     <div className="nn-grid-border" style={{ borderColor: "rgba(255,255,255,0.1)" }}>
                         <div className="grid grid-cols-2 md:grid-cols-4">
                             {[
-                                { k: "15+", l: "Years of operations", icon: Award },
-                                { k: "50K+", l: "Tonnes waste managed / year", icon: Truck },
-                                { k: "12K+", l: "NABL samples tested", icon: FlaskConical },
-                                { k: "250+", l: "Active industrial clients", icon: Users },
+                                { k: "2,04,000", l: "TPA authorised capacity", icon: Truck },
+                                { k: "5", l: "Waste categories · Schedule I–III", icon: Award },
+                                { k: "17,000", l: "MT / month sanctioned intake", icon: FlaskConical },
+                                { k: "NABL", l: "Accredited environmental lab", icon: Users },
                             ].map((s) => (
                                 <div key={s.l} className="p-7 md:p-8 border-r border-b" style={{ borderColor: "rgba(255,255,255,0.08)" }}>
                                     <s.icon className="w-5 h-5 text-emerald-400" />

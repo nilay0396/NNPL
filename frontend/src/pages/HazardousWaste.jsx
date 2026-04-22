@@ -41,19 +41,50 @@ const valueRecovery = [
 ];
 
 const wasteCategories = [
-    "Spent Solvents & Oils",
-    "Paint Sludge & Residues",
-    "Chemical Sludge",
-    "Spent Catalysts",
-    "Contaminated Packaging",
-    "ETP Sludge",
-    "Process Residues",
-    "Lab Chemicals",
-    "Spent Resins",
-    "Acid & Alkali Residues",
-    "Plating Sludge",
-    "Fly Ash Residues",
+    {
+        sl: "01",
+        codes: "6.1–6.4, 7.1–7.5, 8.1–8.3, 16.1–16.3, 20.1–20.4, 21.1, 21.2, 23.1, 23.2, 24.1, 30.1",
+        title: "Hazardous & Other Waste / Paint & Ink Sludge / Industrial Process Waste / Discarded Medicine / Sludge",
+        mode: "Pre-Processing · Alternative Fuel & Raw Material · Recycling",
+        qtyMonth: "4,000 MT / month",
+        qtyYear: "48,000 TPA",
+    },
+    {
+        sl: "02",
+        codes: "1.1–1.7, 2.1–2.3, 9.1–9.3, 10.1, 14.1, 14.2, 22.1, 22.2, 25.1, 25.2, 36.1, 36.2, 37.1–37.3",
+        title: "HW Production & Industrial Use of Solvents · HW Treatment (Preprocessing, Incineration, Concentration) · Drug Production / Formulation",
+        mode: "Incineration · Treatment · Stabilization · Recycling",
+        qtyMonth: "1,000 MT / month",
+        qtyYear: "12,000 TPA",
+    },
+    {
+        sl: "03",
+        codes: "3.1–3.3, 4.1–4.5, 5.1–5.3, 11.1–11.7, 31.1, 31.2, 32.1–32.3, 34.1, 34.2",
+        title: "Used Oil · Waste Oil · ETP Sludge · Pharmaceutical Process Waste",
+        mode: "Recycling · Disposal · Treatment",
+        qtyMonth: "4,000 MT / month",
+        qtyYear: "48,000 TPA",
+    },
+    {
+        sl: "04",
+        codes: "12.1–12.8, 15.1–15.3, 17.1, 17.2, 18.1–18.4, 26.1–26.5, 28.1–28.6, 35.1–35.5",
+        title: "Spent Solvent · Solvent · Mixed Solvent · Pharmaceutical Solvent",
+        mode: "Recycling · Disposal · Treatment",
+        qtyMonth: "4,000 MT / month",
+        qtyYear: "48,000 TPA",
+    },
+    {
+        sl: "05",
+        codes: "13.1–13.6, 19.1, 19.2, 27.1, 29.1–29.6, 33.1, 33.2, 38.1, 38.2 · Schedule I to VIII",
+        title: "Co-processing of Spent Catalysts, RDF & Oily Sludge · Hazardous & Other Waste",
+        mode: "Recycling · Disposal · Pre-Processing · Treatment",
+        qtyMonth: "4,000 MT / month",
+        qtyYear: "48,000 TPA",
+    },
 ];
+
+const TOTAL_TPA = "204,000";
+const TOTAL_MT_MONTH = "17,000";
 
 const industries = ["Cement", "Steel", "Refineries", "Chemicals", "Pharma", "Power", "Automotive", "Government"];
 
@@ -186,21 +217,108 @@ export default function HazardousWaste() {
                 </div>
             </section>
 
-            {/* Waste Categories */}
+            {/* Waste Categories — Authorisation */}
             <section className="nn-section bg-slate-50 border-y border-slate-200" data-testid="haz-categories">
                 <div className="nn-container">
-                    <div className="nn-eyebrow mb-3">Waste Categories Handled</div>
-                    <h2 className="font-display text-3xl md:text-4xl font-black tracking-tight text-slate-900 leading-[1.1] max-w-3xl mb-10">
-                        We accept a wide classification of industrial waste.
-                    </h2>
-                    <div className="nn-grid-border grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 bg-white">
-                        {wasteCategories.map((w, i) => (
-                            <div key={w} className="p-5 flex items-center gap-3">
-                                <span className="font-mono text-[10px] text-slate-400">{String(i + 1).padStart(2, "0")}</span>
-                                <span className="font-display font-semibold text-slate-900">{w}</span>
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-12">
+                        <div className="lg:col-span-7">
+                            <div className="nn-eyebrow mb-3">Authorised Waste Categories</div>
+                            <h2 className="font-display text-3xl md:text-4xl font-black tracking-tight text-slate-900 leading-[1.1]">
+                                Authorisation covering five schedule-grade categories.
+                            </h2>
+                            <p className="mt-4 text-slate-600 max-w-xl">
+                                Our authorisation spans Schedules I, II and III of the Hazardous &
+                                Other Wastes (M &amp; TBM) Rules, 2016 — with a combined sanctioned
+                                capacity of {TOTAL_TPA} TPA.
+                            </p>
+                        </div>
+                        <div className="lg:col-span-5 border border-slate-200 bg-white p-6">
+                            <div className="nn-eyebrow mb-2">Sanctioned Capacity</div>
+                            <div className="font-display text-4xl md:text-5xl font-black text-slate-900 tracking-tight leading-none">
+                                {TOTAL_TPA} <span className="text-[#047857]">TPA</span>
+                            </div>
+                            <div className="mt-2 text-xs font-mono uppercase tracking-[0.2em] text-slate-500">
+                                Aggregate · {TOTAL_MT_MONTH} MT / month
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Desktop table */}
+                    <div className="hidden lg:block border border-slate-200 bg-white overflow-hidden">
+                        <table className="w-full" data-testid="authorised-categories-table">
+                            <thead className="bg-[#0B192C] text-white">
+                                <tr className="text-left font-mono text-[11px] uppercase tracking-[0.2em]">
+                                    <th className="px-5 py-4 w-16">Sl</th>
+                                    <th className="px-5 py-4 w-[28%]">Category</th>
+                                    <th className="px-5 py-4 w-[28%]">Schedule Codes (I · II · III)</th>
+                                    <th className="px-5 py-4 w-[22%]">Authorised Mode</th>
+                                    <th className="px-5 py-4 w-[16%] text-right">Quantity</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {wasteCategories.map((c) => (
+                                    <tr key={c.sl} className="border-t border-slate-200 align-top" data-testid={`auth-cat-row-${c.sl}`}>
+                                        <td className="px-5 py-5 font-mono text-[#047857] font-bold">{c.sl}</td>
+                                        <td className="px-5 py-5">
+                                            <div className="font-display font-bold text-slate-900 text-[15px] leading-snug">
+                                                {c.title}
+                                            </div>
+                                        </td>
+                                        <td className="px-5 py-5">
+                                            <div className="font-mono text-[11px] text-slate-600 leading-relaxed">
+                                                {c.codes}
+                                            </div>
+                                        </td>
+                                        <td className="px-5 py-5 text-sm text-slate-700">{c.mode}</td>
+                                        <td className="px-5 py-5 text-right">
+                                            <div className="font-display font-black text-[#047857] text-lg tracking-tight">
+                                                {c.qtyYear}
+                                            </div>
+                                            <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500 mt-1">
+                                                {c.qtyMonth}
+                                            </div>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {/* Mobile / tablet: stacked cards */}
+                    <div className="lg:hidden nn-grid-border grid grid-cols-1 md:grid-cols-2 bg-white">
+                        {wasteCategories.map((c) => (
+                            <div key={c.sl} className="p-6 flex flex-col" data-testid={`auth-cat-card-${c.sl}`}>
+                                <div className="flex items-start justify-between gap-3">
+                                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#047857]">
+                                        Category {c.sl}
+                                    </span>
+                                    <div className="text-right">
+                                        <div className="font-display font-black text-[#047857] text-base leading-none">
+                                            {c.qtyYear}
+                                        </div>
+                                        <div className="font-mono text-[9px] uppercase tracking-[0.18em] text-slate-500 mt-1">
+                                            {c.qtyMonth}
+                                        </div>
+                                    </div>
+                                </div>
+                                <h4 className="mt-4 font-display font-bold text-slate-900 text-[15px] leading-snug">
+                                    {c.title}
+                                </h4>
+                                <div className="mt-3 font-mono text-[10px] text-slate-500 leading-relaxed">
+                                    <span className="uppercase tracking-[0.15em]">Codes · </span>
+                                    {c.codes}
+                                </div>
+                                <div className="mt-3 text-sm text-slate-700">
+                                    <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-slate-500">Mode · </span>
+                                    {c.mode}
+                                </div>
                             </div>
                         ))}
                     </div>
+
+                    <p className="mt-6 text-xs text-slate-500 font-mono">
+                        * Quantities as per statutory Consent to Operate / Hazardous Waste Authorisation.
+                    </p>
                 </div>
             </section>
 
