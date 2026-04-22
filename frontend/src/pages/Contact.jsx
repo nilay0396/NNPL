@@ -184,12 +184,30 @@ export default function Contact() {
             {/* Map */}
             <section className="relative bg-slate-50 border-t border-slate-200" data-testid="contact-map-section">
                 <div className="nn-container py-10">
-                    <div className="nn-eyebrow mb-4">Our Location</div>
+                    <div className="flex items-end justify-between mb-4 gap-4 flex-wrap">
+                        <div>
+                            <div className="nn-eyebrow mb-2">Our Location</div>
+                            <div className="font-display font-bold text-slate-900 text-lg leading-tight">
+                                {COMPANY.address.line1}
+                            </div>
+                            <div className="text-sm text-slate-600">{COMPANY.address.line2}</div>
+                        </div>
+                        <a
+                            href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(COMPANY.address.mapsQuery)}`}
+                            target="_blank"
+                            rel="noreferrer"
+                            data-testid="contact-open-maps-btn"
+                            className="inline-flex items-center gap-2 h-10 px-5 border border-slate-300 bg-white text-sm font-semibold text-slate-900 hover:border-[#047857] hover:text-[#047857]"
+                        >
+                            Open in Google Maps
+                            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+                        </a>
+                    </div>
                     <div className="relative w-full h-[420px] border border-slate-200 overflow-hidden bg-[#0B192C]">
                         <iframe
                             data-testid="contact-map-iframe"
-                            title="NN Polychem — Kandra Industrial Area, Govindpur, Dhanbad"
-                            src="https://www.google.com/maps?q=Kandra+Industrial+Area+Govindpur+Dhanbad+828109&output=embed"
+                            title="NilayNarayan Polychem LLP — Kandra Industrial Area, Govindpur, Jharkhand"
+                            src={`https://www.google.com/maps?q=${encodeURIComponent(COMPANY.address.mapsQuery)}&output=embed`}
                             className="absolute inset-0 w-full h-full grayscale contrast-[1.1]"
                             loading="lazy"
                             referrerPolicy="no-referrer-when-downgrade"
