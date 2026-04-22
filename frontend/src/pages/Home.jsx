@@ -168,7 +168,7 @@ export default function Home() {
                     <div className="nn-container py-5 flex flex-wrap items-center gap-x-10 gap-y-3 text-[11px] font-mono uppercase tracking-[0.2em] text-slate-400">
                         <span className="text-emerald-300">Accreditations</span>
                         <span>GPCB Authorised</span>
-                        <span>NABL Accredited Lab</span>
+                        <span>NABL · ISO/IEC 17025:2017 · TC-17291</span>
                         <span>ISO 9001:2015</span>
                         <span>ISO 14001:2015</span>
                         <span>ISO 45001:2018</span>
@@ -400,15 +400,22 @@ export default function Home() {
                         </Link>
                     </div>
                     <div className="nn-grid-border grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 bg-white">
-                        {["GPCB", "CPCB", "NABL", "ISO 9001", "ISO 14001", "ISO 45001"].map((c) => (
-                            <div key={c} className="p-6 flex flex-col items-start gap-4">
+                        {[
+                            { name: "GPCB", sub: "Authorised" },
+                            { name: "CPCB", sub: "Compliant" },
+                            { name: "NABL", sub: "TC-17291" },
+                            { name: "ISO 9001", sub: "2015" },
+                            { name: "ISO 14001", sub: "2015" },
+                            { name: "ISO 45001", sub: "2018" },
+                        ].map((c) => (
+                            <div key={c.name} className="p-6 flex flex-col items-start gap-4">
                                 <div className="w-10 h-10 bg-[#0B192C] text-emerald-300 flex items-center justify-center">
                                     <ShieldCheck className="w-5 h-5" />
                                 </div>
                                 <div>
-                                    <div className="font-display font-bold text-slate-900">{c}</div>
+                                    <div className="font-display font-bold text-slate-900">{c.name}</div>
                                     <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500 mt-1">
-                                        Accredited
+                                        {c.sub}
                                     </div>
                                 </div>
                             </div>
