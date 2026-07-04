@@ -4,14 +4,14 @@ export const COMPANY = {
     tagline: "Integrated Hazardous Waste Management & Environmental Solutions",
     logo: "/logo.jpg",
     phones: [
-        { label: "Operations", number: "+91 82925 84106", raw: "+918292584106" },
-        { label: "Sales", number: "+91 80843 71124", raw: "+918084371124" },
-        { label: "Compliance", number: "+91 91994 39902", raw: "+919199439902" },
+        { label: "Sales", number: "+91 91994 39902", raw: "+919199439902" },
+        { label: "Operations", number: "+91 80843 71124", raw: "+918084371124" },
+        { label: "Compliance", number: "+91 82925 84106", raw: "+918292584106" },
     ],
-    // primary shortcuts
-    phone: "+91 82925 84106",
-    phoneRaw: "+918292584106",
-    whatsapp: "918292584106",
+    // primary shortcuts (Sales = primary; WhatsApp bound to Sales line)
+    phone: "+91 91994 39902",
+    phoneRaw: "+919199439902",
+    whatsapp: "919199439902",
     email: "nilaynarayanpolychem@gmail.com",
     address: {
         line1: "Plot No. D-167 (P), 4-5, Kandra Industrial Area",

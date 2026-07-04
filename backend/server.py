@@ -16,10 +16,8 @@ import uuid
 import logging
 import bcrypt
 import jwt as pyjwt
-import smtplib
+import httpx
 import asyncio
-from email.mime.text import MIMEText
-from email.mime.multipart import MIMEMultipart
 
 
 # ---------- Setup ----------
@@ -79,33 +77,46 @@ async def get_current_admin(creds: Optional[HTTPAuthorizationCredentials] = Depe
     return user
 
 
-async def send_email_async(to_email: str, subject: str, body: str):
-    """Best-effort email send. Logs payload if SMTP not configured."""
-    smtp_host = os.environ.get("SMTP_HOST", "")
-    smtp_user = os.environ.get("SMTP_USER", "")
-    smtp_pass = os.environ.get("SMTP_PASSWORD", "")
-    smtp_from = os.environ.get("SMTP_FROM", "no-reply@nilaynarayan.com")
-    smtp_port = int(os.environ.get("SMTP_PORT", "587") or 587)
+# ---------- Email (Emergent-managed Resend) ----------
+EMAIL_BASE_URL = "https://integrations.emergentagent.com"
+EMERGENT_EMAIL_KEY = os.environ.get("EMERGENT_EMAIL_KEY", "")
+EMAIL_FROM_NAME = os.environ.get("EMAIL_FROM_NAME", "NilayNarayan Polychem LLP")
 
-    if not (smtp_host and smtp_user and smtp_pass):
+
+async def send_email_async(to_email: str, subject: str, body: str, reply_to: Optional[str] = None):
+    """Send transactional email via Emergent-managed Resend. Logs and returns silently on failure."""
+    if not EMERGENT_EMAIL_KEY:
         logger.info(f"[EMAIL PLACEHOLDER] to={to_email} subject={subject!r}\n{body}")
         return
 
-    def _send():
-        msg = MIMEMultipart()
-        msg["From"] = smtp_from
-        msg["To"] = to_email
-        msg["Subject"] = subject
-        msg.attach(MIMEText(body, "plain"))
-        with smtplib.SMTP(smtp_host, smtp_port) as s:
-            s.starttls()
-            s.login(smtp_user, smtp_pass)
-            s.sendmail(smtp_from, [to_email], msg.as_string())
+    # Convert plain-text body to a simple HTML block with line breaks preserved.
+    html_body = (
+        "<div style=\"font-family:Arial,sans-serif;font-size:14px;color:#0B192C;line-height:1.55\">"
+        + body.replace("\n", "<br>")
+        + "</div>"
+    )
+    payload = {
+        "to": [to_email],
+        "subject": subject,
+        "html": html_body,
+        "from_name": EMAIL_FROM_NAME,
+    }
+    if reply_to:
+        payload["contact_email"] = reply_to
 
     try:
-        await asyncio.to_thread(_send)
+        async with httpx.AsyncClient(timeout=30) as http_client:
+            resp = await http_client.post(
+                f"{EMAIL_BASE_URL}/api/v1/email/send",
+                headers={"X-Email-Key": EMERGENT_EMAIL_KEY},
+                json=payload,
+            )
+        if resp.status_code >= 400:
+            logger.error(f"Email send failed: {resp.status_code} {resp.text}")
+        else:
+            logger.info(f"Email sent to {to_email} — id={resp.json().get('id')}")
     except Exception as e:
-        logger.error(f"Email send failed: {e}")
+        logger.error(f"Email send error: {e}")
 
 
 # ---------- Models ----------
@@ -374,7 +385,7 @@ async def create_enquiry(payload: EnquiryCreate):
     await db.enquiries.insert_one(dict(doc))
 
     # Best-effort email notification
-    to_email = os.environ.get("COMPANY_CONTACT_EMAIL", "info@nilaynarayan.com")
+    to_email = os.environ.get("COMPANY_CONTACT_EMAIL", "nilaynarayanpolychem@gmail.com")
     subject = f"[NN Polychem] New {payload.enquiry_type} enquiry from {payload.name}"
     details_str = ""
     if payload.details:
@@ -393,7 +404,7 @@ async def create_enquiry(payload: EnquiryCreate):
         f"{details_str}\n\n"
         f"Message:\n{payload.message}\n"
     )
-    asyncio.create_task(send_email_async(to_email, subject, body))
+    asyncio.create_task(send_email_async(to_email, subject, body, reply_to=payload.email))
 
     return Enquiry(**{**doc, "created_at": now})
 
@@ -409,7 +420,7 @@ async def create_vendor(payload: VendorCreate):
     }
     await db.vendors.insert_one(dict(doc))
 
-    to_email = os.environ.get("COMPANY_CONTACT_EMAIL", "info@nilaynarayan.com")
+    to_email = os.environ.get("COMPANY_CONTACT_EMAIL", "nilaynarayanpolychem@gmail.com")
     subject = f"[NN Polychem] New vendor onboarding: {payload.company_name}"
     body = (
         f"New vendor onboarding submission\n\n"
@@ -422,7 +433,7 @@ async def create_vendor(payload: VendorCreate):
         f"Address:\n{payload.address}\n\n"
         f"Description:\n{payload.description or '-'}\n"
     )
-    asyncio.create_task(send_email_async(to_email, subject, body))
+    asyncio.create_task(send_email_async(to_email, subject, body, reply_to=payload.email))
 
     return Vendor(**{**doc, "created_at": now})
 
