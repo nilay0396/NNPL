@@ -15,9 +15,9 @@ export const COMPANY = {
     email: "nilaynarayanpolychem@gmail.com",
     address: {
         line1: "Plot No. D-167 (P), 4-5, Kandra Industrial Area",
-        line2: "Govindpur, Jharkhand – 826010, India",
+        line2: "Govindpur, Dhanbad, Jharkhand – 828109, India",
         city: "Govindpur, Jharkhand",
-        mapsQuery: "Nilaynarayan Polychem LLP, Plot no D-167 (P), 4-5, Kandra Industrial Area, Govindpur, Jharkhand 826010, India",
+        mapsQuery: "Nilaynarayan Polychem LLP, Plot no D-167 (P), 4-5, Kandra Industrial Area, Govindpur, Dhanbad, Jharkhand 828109, India",
     },
     pan: "AAMFN8830F",
     gst: "20AAMFN8830F1ZD",

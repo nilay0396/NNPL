@@ -105,6 +105,12 @@ export default function Products() {
                                             <span className="font-mono uppercase tracking-[0.15em] text-slate-500">Industry · </span>
                                             <span className="text-slate-800">{p.industry}</span>
                                         </div>
+                                        {p.approvals && (
+                                            <div>
+                                                <span className="font-mono uppercase tracking-[0.15em] text-slate-500">Approvals · </span>
+                                                <span className="text-[#047857] font-semibold">{p.approvals}</span>
+                                            </div>
+                                        )}
                                     </div>
                                     <div className="mt-6 pt-5 border-t border-slate-200 flex gap-2">
                                         <button

@@ -186,20 +186,93 @@ class Product(BaseModel):
     application: str
     industry: str
     description: str
+    approvals: Optional[str] = None
     tds_url: Optional[str] = None
     sds_url: Optional[str] = None
 
 
-# ---------- Static product catalog (CMS placeholder) ----------
+# ---------- Static product catalog (from company brochure) ----------
 SEED_PRODUCTS = [
-    {"name": "NN-Floc 210", "category": "Water Treatment", "application": "Effluent clarification & sludge dewatering", "industry": "Chemicals, Pharma, Refineries", "description": "High-efficiency anionic polyacrylamide for industrial ETP/STP clarification and sludge dewatering.", "tds_url": "/assets/tds/nn-floc-210.pdf", "sds_url": "/assets/sds/nn-floc-210.pdf"},
-    {"name": "NN-Neutra 05", "category": "Neutralization Agent", "application": "pH correction for acidic effluent streams", "industry": "Chemicals, Electroplating, Pharma", "description": "Engineered alkaline blend for rapid neutralisation of low-pH industrial effluent.", "tds_url": "/assets/tds/nn-neutra-05.pdf", "sds_url": "/assets/sds/nn-neutra-05.pdf"},
-    {"name": "NN-Solv CP", "category": "Industrial Solvent", "application": "Cleaning & degreasing of process equipment", "industry": "Cement, Steel, Power", "description": "Co-processing grade solvent blend suitable for cement kiln alternative fuel substitution programs.", "tds_url": "/assets/tds/nn-solv-cp.pdf", "sds_url": "/assets/sds/nn-solv-cp.pdf"},
-    {"name": "NN-Bind FA", "category": "Fly Ash Binder", "application": "Stabilization of fly ash & hazardous residue", "industry": "Power, Cement, TSDF", "description": "Cementitious binder system for solidification/stabilisation (S/S) of hazardous residues prior to secure landfill.", "tds_url": "/assets/tds/nn-bind-fa.pdf", "sds_url": "/assets/sds/nn-bind-fa.pdf"},
-    {"name": "NN-Odor Guard", "category": "Odour Control", "application": "Landfill & treatment plant odour neutralisation", "industry": "TSDF, Municipal, Refineries", "description": "Plant-derived vapour-phase odour counteractant for active landfill cells and transfer stations.", "tds_url": "/assets/tds/nn-odor-guard.pdf", "sds_url": "/assets/sds/nn-odor-guard.pdf"},
-    {"name": "NN-Cat Reclaim", "category": "Spent Catalyst Recovery", "application": "Value recovery from spent refinery catalysts", "industry": "Refineries, Petrochemicals", "description": "Reagent system for precious & base-metal recovery from spent hydroprocessing catalysts.", "tds_url": "/assets/tds/nn-cat-reclaim.pdf", "sds_url": "/assets/sds/nn-cat-reclaim.pdf"},
-    {"name": "NN-Scale Stop", "category": "Scale Inhibitor", "application": "Cooling tower and boiler scale prevention", "industry": "Power, Steel, Chemicals", "description": "Phosphonate-based scale & corrosion inhibitor for industrial cooling water systems.", "tds_url": "/assets/tds/nn-scale-stop.pdf", "sds_url": "/assets/sds/nn-scale-stop.pdf"},
-    {"name": "NN-Bio Clean", "category": "Bio-Augmentation", "application": "Biological treatment enhancement for ETP", "industry": "Pharma, Food, Chemicals", "description": "Concentrated microbial consortium for rapid BOD/COD reduction in biological reactors.", "tds_url": "/assets/tds/nn-bio-clean.pdf", "sds_url": "/assets/sds/nn-bio-clean.pdf"},
+    {
+        "name": "NN-DustGuard PSPP",
+        "category": "Dust Suppression",
+        "application": "Dust suppressant for coal, haul roads & stockpiles",
+        "industry": "Mining, Coal, Power, Logistics",
+        "description": "Poly-surfactant polymer dust suppressant engineered for open-cast coal mines, haul roads, transfer points and stockpile faces.",
+        "approvals": "NABL-QC batch tested",
+    },
+    {
+        "name": "NN-Emul SMO",
+        "category": "Explosive Emulsifier",
+        "application": "Sorbitan mono-oleate emulsifier for explosive emulsions & industrial use",
+        "industry": "Explosives, Mining, Industrial",
+        "description": "Sorbitan mono-oleate (SMO) emulsifier for water-in-oil explosive emulsions and industrial emulsion systems.",
+        "approvals": "NABL-QC batch tested",
+    },
+    {
+        "name": "NN-RockBond Cement Capsule",
+        "category": "Grouting Capsule",
+        "application": "Cement grouting capsule for roof bolting in mines",
+        "industry": "Underground Mining, Tunnelling",
+        "description": "Rapid-setting cement grouting capsule for rock / roof bolting in underground mines and tunnels.",
+        "approvals": "DGMS approved",
+    },
+    {
+        "name": "NN-RockGrout Resin Capsule",
+        "category": "Grouting Capsule",
+        "application": "Polyester resin grouting capsule for roof / rock bolting",
+        "industry": "Underground Mining, Tunnelling",
+        "description": "Polyester resin grouting capsule delivering high early-strength bond for roof/rock bolt anchorage in mines and tunnels.",
+        "approvals": "DGMS approved",
+    },
+    {
+        "name": "NN-395 Superplasticizer",
+        "category": "Concrete Admixture",
+        "application": "SNF high-range water reducer for concrete",
+        "industry": "Construction, Infrastructure, RMC",
+        "description": "Sulphonated Naphthalene Formaldehyde (SNF) based high-range water reducer for high-strength, high-workability concrete.",
+        "approvals": "IS 9103 · NCCBM approved",
+    },
+    {
+        "name": "NN-PlastiFlo Water Reducer",
+        "category": "Concrete Admixture",
+        "application": "Lignosulphonate water-reducing admixture / plasticizer",
+        "industry": "Construction, Infrastructure, Precast",
+        "description": "Lignosulphonate based water-reducing plasticizer for improved workability and controlled setting in concrete mixes.",
+        "approvals": "IS 9103 · NCCBM approved",
+    },
+    {
+        "name": "NN-CalNit Calcium Nitrate",
+        "category": "Industrial Salt",
+        "application": "Concrete accelerator, effluent treatment, latex production",
+        "industry": "Construction, Wastewater, Rubber & Latex",
+        "description": "Industrial grade calcium nitrate available as solid crystals and 60% solution — used as concrete set-accelerator, in effluent treatment and latex processing.",
+        "approvals": "NABL-QC batch tested",
+    },
+    {
+        "name": "NN-PyroShield STC-I",
+        "category": "Fire-Retardant Coating",
+        "application": "Metal-oxide intumescent fire-retardant coating",
+        "industry": "Structural Steel, Infrastructure, Refineries",
+        "description": "Metal-oxide intumescent coating providing passive fire protection to structural steel and industrial installations.",
+        "approvals": "NABL-QC batch tested",
+    },
+    {
+        "name": "NN-PyroShield STC-II",
+        "category": "Fire-Retardant Coating",
+        "application": "Non-metal-oxide (organic) intumescent fire-retardant coating",
+        "industry": "Structural Steel, Buildings, Warehousing",
+        "description": "Organic (non-metal-oxide) intumescent fire-retardant coating for structural steel members and industrial buildings.",
+        "approvals": "NABL-QC batch tested",
+    },
+    {
+        "name": "NN-AluBond High Alumina Binder",
+        "category": "Refractory Binder",
+        "application": "Calcium aluminate refractory binder (CA-50 / CA-70 / CA-80)",
+        "industry": "Steel, Cement, Foundries, Refractories",
+        "description": "High-alumina calcium aluminate cement (CA-50, CA-70, CA-80 grades) for refractory castables and monolithic linings.",
+        "approvals": "IS 15895",
+    },
 ]
 
 
@@ -209,6 +282,13 @@ async def on_startup():
     await db.users.create_index("email", unique=True)
     await db.enquiries.create_index("created_at")
     await db.vendors.create_index("created_at")
+
+    # Always resync product catalog from code (single source of truth)
+    await db.products.delete_many({})
+    seeded_products = [{"id": str(uuid.uuid4()), **p} for p in SEED_PRODUCTS]
+    if seeded_products:
+        await db.products.insert_many([dict(x) for x in seeded_products])
+    logger.info(f"Reseeded {len(seeded_products)} products.")
 
     admin_email = os.environ.get("ADMIN_EMAIL", "admin@nilaynarayan.com")
     admin_password = os.environ.get("ADMIN_PASSWORD", "admin123")
@@ -250,15 +330,6 @@ async def health():
 @api_router.get("/products", response_model=List[Product])
 async def list_products():
     products = await db.products.find({}, {"_id": 0}).to_list(200)
-    if not products:
-        # Seed on first call
-        seeded = []
-        for p in SEED_PRODUCTS:
-            doc = {"id": str(uuid.uuid4()), **p}
-            seeded.append(doc)
-        if seeded:
-            await db.products.insert_many([dict(x) for x in seeded])
-        return seeded
     return products
 
 

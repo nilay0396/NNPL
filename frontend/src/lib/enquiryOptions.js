@@ -58,14 +58,16 @@ export const TAT_OPTIONS = [
 ];
 
 export const PRODUCT_OPTIONS = [
-    "NN-Floc 210",
-    "NN-Neutra 05",
-    "NN-Solv CP",
-    "NN-Bind FA",
-    "NN-Odor Guard",
-    "NN-Cat Reclaim",
-    "NN-Scale Stop",
-    "NN-Bio Clean",
+    "NN-DustGuard PSPP",
+    "NN-Emul SMO",
+    "NN-RockBond Cement Capsule",
+    "NN-RockGrout Resin Capsule",
+    "NN-395 Superplasticizer",
+    "NN-PlastiFlo Water Reducer",
+    "NN-CalNit Calcium Nitrate",
+    "NN-PyroShield STC-I",
+    "NN-PyroShield STC-II",
+    "NN-AluBond High Alumina Binder",
 ];
 
 export const PACKAGING_OPTIONS = [

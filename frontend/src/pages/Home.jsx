@@ -15,12 +15,14 @@ import {
     Download,
     Phone,
     MessageCircle,
+    Quote,
 } from "lucide-react";
 import QuoteDialog from "../components/site/QuoteDialog";
 import ProcessFlow from "../components/site/ProcessFlow";
 import CtaBanner from "../components/site/CtaBanner";
 import { COMPANY, whatsappHref } from "../lib/company";
 import { downloadBrochure } from "../lib/download";
+import { TESTIMONIALS } from "../lib/clients";
 
 const HERO_IMG =
     "https://static.prod-images.emergentagent.com/jobs/07dc2c71-76dd-4bb3-b84f-ee529563dce1/images/fa0b84fe426a04210fd17427c272575bcf16386208812eef71f0001ad6434fd0.png";
@@ -420,6 +422,55 @@ export default function Home() {
                                     </div>
                                 </div>
                             </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            {/* TESTIMONIALS */}
+            <section className="nn-section bg-white" data-testid="testimonials-section">
+                <div className="nn-container">
+                    <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-end mb-12">
+                        <div className="lg:col-span-7">
+                            <div className="nn-eyebrow mb-3">Client Reviews</div>
+                            <h2 className="font-display text-3xl md:text-5xl font-black tracking-tight text-slate-900 leading-[1.05]">
+                                Words from the plants and refineries we serve.
+                            </h2>
+                        </div>
+                        <p className="lg:col-span-5 text-slate-600">
+                            Feedback from PSU refineries, mining operators and power plants
+                            we&rsquo;ve partnered with over multi-year hazardous-waste and testing programs.
+                        </p>
+                    </div>
+
+                    <div className="nn-grid-border grid grid-cols-1 md:grid-cols-2 bg-white">
+                        {TESTIMONIALS.map((t, i) => (
+                            <article
+                                key={i}
+                                data-testid={`testimonial-${i}`}
+                                className="p-8 md:p-10 flex flex-col bg-white"
+                            >
+                                <div className="flex items-center justify-between">
+                                    <Quote className="w-8 h-8 text-[#047857]" strokeWidth={1.6} />
+                                    <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500">
+                                        {t.sector}
+                                    </span>
+                                </div>
+                                <blockquote className="mt-6 font-display text-lg md:text-xl leading-[1.35] tracking-tight text-slate-900">
+                                    &ldquo;{t.quote}&rdquo;
+                                </blockquote>
+                                <div className="mt-8 pt-5 border-t border-slate-200 flex items-center gap-3">
+                                    <div className="w-10 h-10 bg-[#0B192C] text-emerald-300 flex items-center justify-center font-display font-black text-sm">
+                                        {t.client.split(" ").filter(Boolean).slice(0, 2).map((w) => w[0]).join("")}
+                                    </div>
+                                    <div>
+                                        <div className="font-display font-bold text-slate-900 text-sm">{t.client}</div>
+                                        <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-[#047857] mt-0.5">
+                                            Verified engagement
+                                        </div>
+                                    </div>
+                                </div>
+                            </article>
                         ))}
                     </div>
                 </div>
