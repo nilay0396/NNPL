@@ -217,6 +217,9 @@ SEED_PRODUCTS = [
         "industry": "Underground Mining, Tunnelling",
         "description": "Rapid-setting cement grouting capsule for rock / roof bolting in underground mines and tunnels.",
         "approvals": "DGMS approved",
+        "image": "/products/nn-rockbond-cement-capsule.png",
+        "tds_url": "/products/nn-rockbond-cement-capsule-tds.pdf",
+        "sds_url": "/products/nn-rockbond-cement-capsule-sds.pdf",
     },
     {
         "name": "NN-RockGrout Resin Capsule",
