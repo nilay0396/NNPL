@@ -231,6 +231,9 @@ SEED_PRODUCTS = [
         "industry": "Underground Mining, Tunnelling",
         "description": "Polyester resin grouting capsule delivering high early-strength bond for roof/rock bolt anchorage in mines and tunnels.",
         "approvals": "DGMS approved",
+        "image": "/products/nn-rockgrout-resin-capsule.png",
+        "tds_url": "/products/nn-rockgrout-resin-capsule-tds.pdf",
+        "sds_url": "/products/nn-rockgrout-resin-capsule-sds.pdf",
     },
     {
         "name": "NN-395 Superplasticizer",
