@@ -280,6 +280,9 @@ SEED_PRODUCTS = [
         "industry": "Structural Steel, Buildings, Warehousing",
         "description": "Organic (non-metal-oxide) intumescent fire-retardant coating for structural steel members and industrial buildings.",
         "approvals": "NABL-QC batch tested",
+        "image": "/products/nn-pyroshield-stc-ii.png",
+        "tds_url": "/products/nn-pyroshield-stc-ii-tds.pdf",
+        "sds_url": "/products/nn-pyroshield-stc-ii-sds.pdf",
     },
     {
         "name": "NN-AluBond High Alumina Binder",

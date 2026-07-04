@@ -44,6 +44,7 @@ Build a production-ready, modern corporate website for NilayNarayan Polychem LLP
 - [x] **Feb 2026** — NN-RockBond Cement Capsule: added real product image + gated TDS/SDS downloads (same flow).
 - [x] **Feb 2026** — NN-DustGuard PSPP: added real product image + gated TDS/SDS downloads (same flow).
 - [x] **Feb 2026** — NN-PyroShield STC-I: added real product image + gated TDS/SDS downloads (same flow).
+- [x] **Feb 2026** — NN-PyroShield STC-II: added real product image + gated TDS/SDS downloads (same flow).
 
 ## Testing
 - Regression suite: `pytest /app/backend/tests/test_backend.py` — **22/22 pass**
