@@ -1,4 +1,5 @@
-import { Download, ShieldCheck, Award, BadgeCheck, FlaskConical } from "lucide-react";
+import { useState } from "react";
+import { ShieldCheck, Award, BadgeCheck, FlaskConical, ImageIcon } from "lucide-react";
 import PageHero from "../components/site/PageHero";
 import CtaBanner from "../components/site/CtaBanner";
 import { ACCREDITATION } from "../lib/labScope";
@@ -6,8 +7,11 @@ import { ACCREDITATION } from "../lib/labScope";
 const formatDate = (iso) =>
     new Date(iso).toLocaleDateString("en-GB", { day: "2-digit", month: "short", year: "numeric" });
 
+// image slot maps to /public/certs/<slug>.jpg — upload real images with the same name
+// to replace the placeholder for each certificate.
 const certs = [
     {
+        slug: "nabl",
         name: "NABL Accreditation",
         body: "National Accreditation Board for Testing and Calibration Laboratories",
         type: "Lab Accreditation",
@@ -15,56 +19,54 @@ const certs = [
         number: ACCREDITATION.certificateNumber,
         validFrom: formatDate(ACCREDITATION.validFrom),
         validTo: formatDate(ACCREDITATION.validTo),
-        icon: FlaskConical,
         featured: true,
-        file: "/assets/certs/nabl-scope.pdf",
     },
     {
+        slug: "gpcb-hw",
         name: "GPCB Hazardous Waste Authorisation",
         body: "Jharkhand State Pollution Control Board",
         type: "Authorisation",
         standard: "Hazardous & Other Wastes (M & TBM) Rules, 2016",
-        file: "/assets/certs/hw-authorisation.pdf",
     },
     {
+        slug: "cpcb-coprocessing",
         name: "CPCB Co-processing Compliance",
         body: "Central Pollution Control Board",
         type: "Guideline Compliance",
         standard: "CPCB Co-processing Guidelines",
-        file: "/assets/certs/cpcb-coprocessing.pdf",
     },
     {
+        slug: "iso-9001",
         name: "ISO 9001:2015",
         body: "Quality Management System · TÜV / BSI",
         type: "Management System",
         standard: "ISO 9001:2015",
-        file: "/assets/certs/iso9001.pdf",
     },
     {
+        slug: "iso-14001",
         name: "ISO 14001:2015",
         body: "Environmental Management · TÜV / BSI",
         type: "Management System",
         standard: "ISO 14001:2015",
-        file: "/assets/certs/iso14001.pdf",
     },
     {
+        slug: "iso-45001",
         name: "ISO 45001:2018",
         body: "Occupational Health & Safety · TÜV / BSI",
         type: "Management System",
         standard: "ISO 45001:2018",
-        file: "/assets/certs/iso45001.pdf",
     },
     {
+        slug: "factory-licence",
         name: "Factory Licence",
         body: "Directorate of Industrial Safety & Health",
         type: "Statutory Licence",
-        file: "/assets/certs/factory.pdf",
     },
     {
+        slug: "cgwa-noc",
         name: "CGWA Ground Water NOC",
         body: "Central Ground Water Authority",
         type: "NOC",
-        file: "/assets/certs/cgwa.pdf",
     },
 ];
 
@@ -77,7 +79,7 @@ export default function Certifications() {
             <PageHero
                 breadcrumb="Compliance / Certifications"
                 title="Regulatory-grade, accredited and auditable."
-                subtitle="Every statutory authorisation, accreditation and ISO certification — available for download or tender submission on request."
+                subtitle="Every statutory authorisation, accreditation and ISO certification maintained current — shared via secure link on tender request."
             />
 
             {/* Featured NABL card */}
@@ -109,23 +111,6 @@ export default function Certifications() {
                                         <MetaCell label="Valid Till" value={featured.validTo} accent />
                                         <MetaCell label="Laboratory" value="NilayNarayan Polychem LLP" wide />
                                     </dl>
-
-                                    <div className="mt-8 flex flex-wrap gap-3">
-                                        <a
-                                            href={featured.file}
-                                            onClick={(e) => e.preventDefault()}
-                                            data-testid="cert-featured-download"
-                                            className="inline-flex items-center gap-2 h-11 px-5 bg-[#047857] text-white font-semibold hover:bg-[#059669]"
-                                        >
-                                            <Download className="w-4 h-4" /> Download NABL Scope
-                                        </a>
-                                        <a
-                                            href="/services/nabl-lab"
-                                            className="inline-flex items-center gap-2 h-11 px-5 border border-white/20 text-white font-semibold hover:bg-white/5"
-                                        >
-                                            View Lab Scope
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
 
@@ -161,6 +146,11 @@ export default function Certifications() {
                                 </div>
                             </div>
                         </div>
+
+                        {/* Placeholder image row for NABL certificate scan */}
+                        <div className="mt-8">
+                            <CertImageSlot slug={featured.slug} label="Upload NABL Certificate image → /public/certs/nabl.jpg" wide />
+                        </div>
                     </div>
                 </section>
             )}
@@ -176,14 +166,14 @@ export default function Certifications() {
                             </h2>
                         </div>
                         <p className="lg:col-span-5 text-slate-600">
-                            Signed PDF copies are shared via secure link on tender request.
-                            Placeholders below are refreshed whenever a renewal is issued.
+                            Signed certificates are shared via secure link on tender request.
+                            Upload the corresponding image into <span className="font-mono text-slate-800">/public/certs/&lt;slug&gt;.jpg</span> to replace the placeholder on each card.
                         </p>
                     </div>
                     <div className="nn-grid-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                         {rest.map((c, i) => (
                             <div key={c.name} className="bg-white p-7 flex flex-col" data-testid={`cert-card-${i}`}>
-                                <div className="flex items-center justify-between mb-8">
+                                <div className="flex items-center justify-between mb-6">
                                     <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#047857]">
                                         {c.type}
                                     </span>
@@ -196,14 +186,9 @@ export default function Certifications() {
                                         {c.standard}
                                     </div>
                                 )}
-                                <a
-                                    href={c.file}
-                                    onClick={(e) => e.preventDefault()}
-                                    data-testid={`cert-download-${i}`}
-                                    className="mt-auto pt-6 inline-flex items-center gap-2 text-sm font-semibold text-[#047857] hover:text-[#065F46]"
-                                >
-                                    <Download className="w-4 h-4" /> Download Certificate
-                                </a>
+                                <div className="mt-6">
+                                    <CertImageSlot slug={c.slug} label={`Upload → /public/certs/${c.slug}.jpg`} />
+                                </div>
                             </div>
                         ))}
                     </div>
@@ -245,6 +230,41 @@ function MetaCell({ label, value, accent = false, wide = false }) {
             <div className={`mt-1.5 font-display font-bold ${accent ? "text-emerald-300 text-lg" : "text-white"}`}>
                 {value}
             </div>
+        </div>
+    );
+}
+
+/**
+ * CertImageSlot — shows the certificate image if uploaded to /public/certs/<slug>.jpg,
+ * otherwise shows a dashed placeholder with the upload instruction.
+ */
+function CertImageSlot({ slug, label, wide = false }) {
+    const src = `/certs/${slug}.jpg`;
+    const [failed, setFailed] = useState(false);
+    return (
+        <div
+            data-testid={`cert-image-${slug}`}
+            className={`relative border border-dashed border-slate-300 bg-slate-50 overflow-hidden ${
+                wide ? "aspect-[16/6]" : "aspect-[4/3]"
+            }`}
+        >
+            {!failed && (
+                <img
+                    src={src}
+                    alt={`${slug} certificate`}
+                    className="absolute inset-0 w-full h-full object-cover"
+                    onError={() => setFailed(true)}
+                />
+            )}
+            {failed && (
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
+                    <ImageIcon className="w-6 h-6 text-slate-400" strokeWidth={1.5} />
+                    <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">
+                        Certificate image · placeholder
+                    </div>
+                    <div className="mt-1 text-[11px] font-mono text-slate-400 break-all">{label}</div>
+                </div>
+            )}
         </div>
     );
 }

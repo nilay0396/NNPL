@@ -7,7 +7,6 @@ import {
     Volume2,
     Factory,
     ArrowRight,
-    Download,
     ShieldCheck,
     FileCheck2,
     Microscope,
@@ -158,20 +157,12 @@ export default function NablLab() {
                         <TrustChip label={ACCREDITATION.totalClaim} />
                         <div className="ml-auto flex flex-wrap gap-2">
                             <button
-                                onClick={() => setQuoteOpen(true)}
+                                onClick={() => openQuote()}
                                 data-testid="nabl-request-top"
                                 className="inline-flex items-center gap-2 h-10 px-5 bg-[#047857] text-white text-sm font-semibold hover:bg-[#065F46]"
                             >
                                 Request Testing <ArrowRight className="w-4 h-4" />
                             </button>
-                            <a
-                                href="/assets/certs/nabl-scope.pdf"
-                                onClick={(e) => e.preventDefault()}
-                                data-testid="nabl-download-scope"
-                                className="inline-flex items-center gap-2 h-10 px-5 border border-slate-300 text-sm font-semibold text-slate-900 hover:border-[#047857] hover:text-[#047857]"
-                            >
-                                <Download className="w-4 h-4" /> Download Scope PDF
-                            </a>
                             <a
                                 href="#lab-contact"
                                 className="hidden md:inline-flex items-center h-10 px-2 text-sm font-semibold text-[#047857] hover:underline"
@@ -489,27 +480,19 @@ export default function NablLab() {
                         </div>
                         <div className="lg:col-span-5 flex flex-col sm:flex-row flex-wrap gap-3 justify-start lg:justify-end">
                             <button
-                                onClick={() => setQuoteOpen(true)}
+                                onClick={() => openQuote()}
                                 data-testid="nabl-cta-quote"
                                 className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-[#047857] text-white font-semibold hover:bg-[#059669]"
                             >
                                 Request a Quote <ArrowRight className="w-4 h-4" />
                             </button>
                             <button
-                                onClick={() => setQuoteOpen(true)}
+                                onClick={() => openQuote()}
                                 data-testid="nabl-cta-sample"
                                 className="inline-flex items-center justify-center gap-2 h-12 px-6 bg-white/5 border border-white/20 text-white font-semibold hover:bg-white/10"
                             >
                                 Submit Sample Enquiry
                             </button>
-                            <a
-                                href="/assets/certs/nabl-scope.pdf"
-                                onClick={(e) => e.preventDefault()}
-                                data-testid="nabl-cta-download"
-                                className="inline-flex items-center justify-center gap-2 h-12 px-6 border border-white/20 text-white font-semibold hover:bg-white/5"
-                            >
-                                <Download className="w-4 h-4" /> Download NABL Scope
-                            </a>
                         </div>
                     </div>
                 </div>
@@ -558,13 +541,6 @@ export default function NablLab() {
                                     >
                                         Request this testing <ArrowRight className="w-4 h-4" />
                                     </button>
-                                    <a
-                                        href="/assets/certs/nabl-scope.pdf"
-                                        onClick={(e) => e.preventDefault()}
-                                        className="inline-flex items-center gap-2 h-10 px-5 border border-slate-300 text-sm font-semibold text-slate-900 hover:border-[#047857] hover:text-[#047857]"
-                                    >
-                                        <Download className="w-4 h-4" /> NABL Scope PDF
-                                    </a>
                                 </div>
                             </div>
                         </>
