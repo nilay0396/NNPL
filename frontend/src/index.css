@@ -309,3 +309,20 @@ button img, a img, [role="button"] img, [data-clickable-img] {
     }
     body > *:not(::before) { display: none !important; }
 }
+
+
+/* Client logo marquee — infinite horizontal scroll */
+.nn-marquee-track {
+    animation: nn-marquee 42s linear infinite;
+    will-change: transform;
+}
+.nn-marquee:hover .nn-marquee-track {
+    animation-play-state: paused;
+}
+@keyframes nn-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+@media (prefers-reduced-motion: reduce) {
+    .nn-marquee-track { animation: none; }
+}

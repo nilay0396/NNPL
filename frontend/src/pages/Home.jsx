@@ -20,6 +20,7 @@ import {
 import QuoteDialog from "../components/site/QuoteDialog";
 import ProcessFlow from "../components/site/ProcessFlow";
 import CtaBanner from "../components/site/CtaBanner";
+import ClientMarquee from "../components/site/ClientMarquee";
 import { COMPANY, whatsappHref } from "../lib/company";
 import { downloadBrochure } from "../lib/download";
 import { TESTIMONIALS } from "../lib/clients";
@@ -179,6 +180,9 @@ export default function Home() {
                     </div>
                 </div>
             </section>
+
+            {/* CLIENT LOGO MARQUEE — subtle social proof strip */}
+            <ClientMarquee />
 
             {/* ABOUT SNAPSHOT */}
             <section className="nn-section bg-white" data-testid="about-snapshot">
