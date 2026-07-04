@@ -36,6 +36,7 @@ Build a production-ready, modern corporate website for NilayNarayan Polychem LLP
 - [x] Google Maps embed (Ankleshwar placeholder)
 - [x] Seed SMTP placeholders, company contact placeholders ready for real-value drop-in
 - [x] **Feb 2026** — Real leadership & management team photos wired into `/app/frontend/public/team/` and rendered on `About.jsx` (grayscale → color hover). 7 photos: Dr. Jagdish, Ansul Kumar, Nilay Kumar, Sourav Kumar Mondal, Ombir Singh, Shubham Mandal, Ompal Singh. Fixed name spelling "Saurabh" → "Sourav".
+- [x] **Feb 2026** — Extracted 9 client logos directly from the company brochure PDF (page 9) via `pdfimages`, placed at `/app/frontend/public/clients/` as `iocl.png`, `tata-mpl-jv.png`, `bccl.png`, `dvc.png`, `indane.png`, `indian-railways.png`, `technip-energies.png`, `acc-cement.png`, `gail.png`. Maithon Power gracefully falls back to text tile (no logo in brochure).
 
 ## Testing
 - Regression suite: `pytest /app/backend/tests/test_backend.py` — **22/22 pass**
