@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { Mail, Phone, MapPin, Download } from "lucide-react";
+import { Mail, Phone, MapPin, Download, Globe } from "lucide-react";
 import { COMPANY, whatsappHref } from "../../lib/company";
 import { downloadBrochure } from "../../lib/download";
 
@@ -81,6 +81,18 @@ export default function Footer() {
                             <li className="flex items-center gap-2.5">
                                 <Mail className="w-4 h-4 text-emerald-400" />
                                 <a href={`mailto:${COMPANY.email}`} className="hover:text-white">{COMPANY.email}</a>
+                            </li>
+                            <li className="flex items-center gap-2.5">
+                                <Globe className="w-4 h-4 text-emerald-400" />
+                                <a
+                                    href={COMPANY.websiteUrl}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    data-testid="footer-website-link"
+                                    className="hover:text-white font-mono"
+                                >
+                                    {COMPANY.website}
+                                </a>
                             </li>
                         </ul>
                         <a
