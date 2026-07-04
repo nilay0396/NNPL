@@ -67,6 +67,7 @@ function emptyDetails() {
         packaging: "",
         requirement_type: "",
         delivery_pincode: "",
+        document_requested: "",
     };
 }
 
@@ -102,6 +103,7 @@ export default function QuoteDialog({ open, onOpenChange, defaultType = "quote",
             sample_category: context?.sampleCategory || "",
             water_matrix: context?.waterMatrix || "",
             waste_category: context?.wasteCategory || "",
+            document_requested: context?.docRequested || "",
         });
     }, [open, context]);
 
@@ -344,6 +346,11 @@ export default function QuoteDialog({ open, onOpenChange, defaultType = "quote",
 
                         {showProduct && (
                             <>
+                                {details.document_requested && (
+                                    <div className="text-sm bg-emerald-50 border border-emerald-200 text-emerald-900 px-3 py-2" data-testid="doc-request-notice">
+                                        Requesting <strong>{details.document_requested}</strong> for <strong>{details.product || "the selected product"}</strong>.
+                                    </div>
+                                )}
                                 <FieldLabel label="Product *">
                                     <SelectOrType
                                         data-testid="field-product"

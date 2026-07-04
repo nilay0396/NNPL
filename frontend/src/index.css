@@ -241,6 +241,20 @@ html:not(.nn-shield-blur) body {
     filter: none;
     transition: filter 220ms ease;
 }
+/* Disable text selection site-wide, but keep it inside form controls */
+body {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+input, textarea, select, [contenteditable="true"] {
+    -webkit-user-select: text;
+    -moz-user-select: text;
+    -ms-user-select: text;
+    user-select: text;
+}
 img, video, canvas {
     -webkit-user-drag: none;
     -khtml-user-drag: none;
@@ -248,16 +262,13 @@ img, video, canvas {
     -o-user-drag: none;
     user-drag: none;
     -webkit-touch-callout: none;
-}
-[data-shield="on"] {
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-    -webkit-touch-callout: none;
-}
-[data-shield="on"] img {
     pointer-events: none;
+}
+/* re-enable pointer for interactive images (icons inside links/buttons still work
+   because the parent element receives the click). Explicitly re-enable for
+   controls that must be clickable */
+button img, a img, [role="button"] img, [data-clickable-img] {
+    pointer-events: auto;
 }
 
 /* Watermark overlay for confidential media */

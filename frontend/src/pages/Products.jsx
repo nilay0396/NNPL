@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Download, Package, ArrowRight, Search, Loader2 } from "lucide-react";
+import { Package, ArrowRight, Search, Loader2, FileText } from "lucide-react";
 import PageHero from "../components/site/PageHero";
 import CtaBanner from "../components/site/CtaBanner";
 import QuoteDialog from "../components/site/QuoteDialog";
@@ -107,22 +107,22 @@ export default function Products() {
                                         </div>
                                     </div>
                                     <div className="mt-6 pt-5 border-t border-slate-200 flex gap-2">
-                                        <a
-                                            href={p.tds_url || "#"}
-                                            onClick={(e) => e.preventDefault()}
+                                        <button
+                                            type="button"
+                                            onClick={() => openQuote({ product: p.name, docRequested: "TDS" })}
                                             data-testid={`product-tds-btn-${i}`}
                                             className="flex-1 inline-flex items-center justify-center gap-2 h-10 border border-slate-300 text-xs font-mono uppercase tracking-[0.15em] text-slate-700 hover:border-[#047857] hover:text-[#047857]"
                                         >
-                                            <Download className="w-3.5 h-3.5" /> TDS
-                                        </a>
-                                        <a
-                                            href={p.sds_url || "#"}
-                                            onClick={(e) => e.preventDefault()}
+                                            <FileText className="w-3.5 h-3.5" /> Request TDS
+                                        </button>
+                                        <button
+                                            type="button"
+                                            onClick={() => openQuote({ product: p.name, docRequested: "SDS" })}
                                             data-testid={`product-sds-btn-${i}`}
                                             className="flex-1 inline-flex items-center justify-center gap-2 h-10 border border-slate-300 text-xs font-mono uppercase tracking-[0.15em] text-slate-700 hover:border-[#047857] hover:text-[#047857]"
                                         >
-                                            <Download className="w-3.5 h-3.5" /> SDS
-                                        </a>
+                                            <FileText className="w-3.5 h-3.5" /> Request SDS
+                                        </button>
                                     </div>
                                     <button
                                         data-testid={`product-enquire-btn-${i}`}

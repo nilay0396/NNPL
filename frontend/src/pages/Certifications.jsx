@@ -162,7 +162,6 @@ export default function Certifications() {
                         </div>
                         <p className="lg:col-span-5 text-slate-600">
                             Signed certificates are shared via secure link on tender request.
-                            Upload the corresponding image into <span className="font-mono text-slate-800">/public/certs/&lt;slug&gt;.jpg</span> to replace the placeholder on each card.
                         </p>
                     </div>
                     <div className="nn-grid-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
@@ -176,13 +175,15 @@ export default function Certifications() {
                                 </div>
                                 <h3 className="font-display text-lg font-bold text-slate-900 leading-tight">{c.name}</h3>
                                 <div className="text-xs text-slate-500 mt-1">{c.body}</div>
-                                {c.standard && (
-                                    <div className="mt-4 text-[11px] font-mono uppercase tracking-[0.15em] text-slate-700 border border-slate-200 px-2 py-1 self-start">
-                                        {c.standard}
-                                    </div>
-                                )}
-                                <div className="mt-6">
-                                    <CertImageSlot slug={c.slug} label={`Upload → /public/certs/${c.slug}.jpg`} />
+                                <div className="mt-4 h-8 flex items-start">
+                                    {c.standard && (
+                                        <div className="text-[11px] font-mono uppercase tracking-[0.15em] text-slate-700 border border-slate-200 px-2 py-1 self-start">
+                                            {c.standard}
+                                        </div>
+                                    )}
+                                </div>
+                                <div className="mt-auto pt-6">
+                                    <CertImageSlot slug={c.slug} />
                                 </div>
                             </div>
                         ))}
@@ -234,7 +235,7 @@ function MetaCell({ label, value, accent = false, wide = false }) {
  * otherwise shows a dashed placeholder with the upload instruction.
  * Wrapped in a shield that disables selection, drag and overlays a repeating watermark.
  */
-function CertImageSlot({ slug, label, wide = false }) {
+function CertImageSlot({ slug }) {
     const src = `/certs/${slug}.jpg`;
     const [failed, setFailed] = useState(false);
     const watermark = "NILAYNARAYAN POLYCHEM · CONFIDENTIAL";
@@ -242,14 +243,12 @@ function CertImageSlot({ slug, label, wide = false }) {
         <div
             data-testid={`cert-image-${slug}`}
             data-shield="on"
-            className={`relative border border-dashed border-slate-300 bg-slate-50 overflow-hidden ${
-                wide ? "aspect-[16/6]" : "aspect-[4/3]"
-            }`}
+            className="relative border border-dashed border-slate-300 bg-slate-50 overflow-hidden aspect-[4/3]"
         >
             {!failed && (
                 <img
                     src={src}
-                    alt={`${slug} certificate`}
+                    alt="Certificate"
                     className="absolute inset-0 w-full h-full object-cover select-none"
                     draggable={false}
                     onError={() => setFailed(true)}
@@ -259,9 +258,11 @@ function CertImageSlot({ slug, label, wide = false }) {
                 <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-6">
                     <ImageIcon className="w-6 h-6 text-slate-400" strokeWidth={1.5} />
                     <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.18em] text-slate-500">
-                        Certificate image · placeholder
+                        Certificate on record
                     </div>
-                    <div className="mt-1 text-[11px] font-mono text-slate-400 break-all">{label}</div>
+                    <div className="mt-1 text-[11px] text-slate-400">
+                        Shared via secure link on tender request.
+                    </div>
                 </div>
             )}
             {!failed && (

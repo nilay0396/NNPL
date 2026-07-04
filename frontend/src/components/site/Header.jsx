@@ -124,14 +124,30 @@ export default function Header() {
                     </nav>
 
                     <div className="flex items-center gap-2">
-                        <a
-                            href={`tel:${COMPANY.phoneRaw}`}
-                            className="hidden md:flex items-center gap-2 px-3 py-2 text-sm font-medium text-slate-700 hover:text-[#047857] transition-colors"
-                            data-testid="header-call-btn"
-                        >
-                            <Phone className="w-4 h-4" />
-                            <span className="font-mono text-xs">{COMPANY.phone}</span>
-                        </a>
+                        <div className="hidden md:block relative group">
+                            <button
+                                type="button"
+                                data-testid="header-call-btn"
+                                className="flex items-center gap-2 whitespace-nowrap px-3 py-2 text-sm font-medium text-slate-700 hover:text-[#047857] transition-colors"
+                            >
+                                <Phone className="w-4 h-4" />
+                                <span className="font-mono text-xs whitespace-nowrap">Call Us</span>
+                                <ChevronDown className="w-3 h-3" />
+                            </button>
+                            <div className="absolute right-0 top-full mt-1 w-64 bg-white border border-slate-200 shadow-lg py-2 opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-opacity">
+                                {COMPANY.phones.map((p) => (
+                                    <a
+                                        key={p.raw}
+                                        href={`tel:${p.raw}`}
+                                        data-testid={`header-phone-${p.label.toLowerCase()}`}
+                                        className="flex items-center justify-between gap-3 px-4 py-2.5 text-sm hover:bg-slate-50"
+                                    >
+                                        <span className="font-mono text-xs text-slate-500 uppercase tracking-[0.15em]">{p.label}</span>
+                                        <span className="font-mono font-semibold text-slate-900 whitespace-nowrap">{p.number}</span>
+                                    </a>
+                                ))}
+                            </div>
+                        </div>
                         <button
                             data-testid="header-get-quote-btn"
                             onClick={() => setQuoteOpen(true)}
