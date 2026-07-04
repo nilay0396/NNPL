@@ -291,6 +291,9 @@ SEED_PRODUCTS = [
         "industry": "Steel, Cement, Foundries, Refractories",
         "description": "High-alumina calcium aluminate cement (CA-50, CA-70, CA-80 grades) for refractory castables and monolithic linings.",
         "approvals": "IS 15895",
+        "image": "/products/nn-alubond-high-alumina-binder.png",
+        "tds_url": "/products/nn-alubond-high-alumina-binder-tds.pdf",
+        "sds_url": "/products/nn-alubond-high-alumina-binder-sds.pdf",
     },
 ]
 
