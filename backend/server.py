@@ -212,6 +212,9 @@ SEED_PRODUCTS = [
         "industry": "Explosives, Mining, Industrial",
         "description": "Sorbitan mono-oleate (SMO) emulsifier for water-in-oil explosive emulsions and industrial emulsion systems.",
         "approvals": "NABL-QC batch tested",
+        "image": "/products/nn-emul-smo.png",
+        "tds_url": "/products/nn-emul-smo-tds.pdf",
+        "sds_url": "/products/nn-emul-smo-sds.pdf",
     },
     {
         "name": "NN-RockBond Cement Capsule",
