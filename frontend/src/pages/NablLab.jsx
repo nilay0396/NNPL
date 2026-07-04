@@ -122,6 +122,22 @@ const ASSURANCES = [
 export default function NablLab() {
     const [quoteOpen, setQuoteOpen] = useState(false);
     const [expanded, setExpanded] = useState(null);
+    const [quoteContext, setQuoteContext] = useState(null);
+
+    const openQuote = (ctx = null) => {
+        setQuoteContext(ctx);
+        setQuoteOpen(true);
+    };
+
+    // Map internal card keys to the human-facing sample_category value
+    const categoryToSample = {
+        air: "Ambient Air",
+        stack: "Stack Emission",
+        soil: "Soil & Sediments",
+        wastewater: "Wastewater / Effluent / Sewage",
+        water: "Water Testing",
+        noise: "Noise Monitoring",
+    };
 
     return (
         <>
@@ -340,7 +356,7 @@ export default function NablLab() {
                                             Scope to your use-case by selecting a subset at enquiry.
                                         </p>
                                         <button
-                                            onClick={() => setQuoteOpen(true)}
+                                            onClick={() => openQuote({ sampleCategory: "Water Testing", waterMatrix: m })}
                                             data-testid={`water-enquire-${m.replace(/\s+/g, "-").toLowerCase()}`}
                                             className="mt-6 inline-flex items-center gap-2 h-10 px-5 bg-[#0B192C] text-white text-sm font-semibold hover:bg-[#132744]"
                                         >
@@ -533,8 +549,9 @@ export default function NablLab() {
                                 <div className="mt-6 pt-5 border-t border-slate-200 flex flex-wrap gap-3">
                                     <button
                                         onClick={() => {
+                                            const cat = categoryToSample[expanded.key] || null;
                                             setExpanded(null);
-                                            setQuoteOpen(true);
+                                            openQuote(cat ? { sampleCategory: cat } : null);
                                         }}
                                         data-testid="nabl-scope-modal-quote"
                                         className="inline-flex items-center gap-2 h-10 px-5 bg-[#047857] text-white text-sm font-semibold hover:bg-[#065F46]"
@@ -555,7 +572,7 @@ export default function NablLab() {
                 </DialogContent>
             </Dialog>
 
-            <QuoteDialog open={quoteOpen} onOpenChange={setQuoteOpen} defaultType="lab_testing" />
+            <QuoteDialog open={quoteOpen} onOpenChange={setQuoteOpen} defaultType="lab_testing" context={quoteContext} />
         </>
     );
 }

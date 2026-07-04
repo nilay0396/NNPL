@@ -3,20 +3,10 @@ import { Mail, Phone, MapPin, MessageCircle, Loader2, CheckCircle2, Clock } from
 import PageHero from "../components/site/PageHero";
 import { Input } from "../components/ui/input";
 import { Textarea } from "../components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "../components/ui/select";
+import SelectOrType from "../components/site/SelectOrType";
 import { api, formatApiError } from "../lib/api";
 import { COMPANY, whatsappHref } from "../lib/company";
-
-const services = [
-    "Hazardous Waste Disposal",
-    "TSDF Services",
-    "Co-processing",
-    "Recycling / Value Recovery",
-    "NABL Lab Testing",
-    "Speciality Chemicals",
-    "Tender / Empanelment",
-    "Other",
-];
+import { SERVICE_OPTIONS } from "../lib/enquiryOptions";
 
 export default function Contact() {
     const [form, setForm] = useState({ name: "", company: "", email: "", phone: "", service_required: "", message: "" });
@@ -155,14 +145,17 @@ export default function Contact() {
                                         <Input data-testid="contact-input-email" required type="email" placeholder="Email *" value={form.email} onChange={update("email")} className="rounded-none h-11 border-slate-300" />
                                         <Input data-testid="contact-input-phone" required placeholder="Phone *" value={form.phone} onChange={update("phone")} className="rounded-none h-11 border-slate-300" />
                                     </div>
-                                    <Select value={form.service_required} onValueChange={(v) => setForm((f) => ({ ...f, service_required: v }))}>
-                                        <SelectTrigger data-testid="contact-select-service" className="rounded-none h-11 border-slate-300">
-                                            <SelectValue placeholder="Service required" />
-                                        </SelectTrigger>
-                                        <SelectContent className="rounded-none">
-                                            {services.map((s) => (<SelectItem key={s} value={s}>{s}</SelectItem>))}
-                                        </SelectContent>
-                                    </Select>
+                                    <div>
+                                        <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-1.5">Service required</div>
+                                        <SelectOrType
+                                            data-testid="contact-select-service"
+                                            value={form.service_required}
+                                            onChange={(v) => setForm((f) => ({ ...f, service_required: v }))}
+                                            options={SERVICE_OPTIONS}
+                                            placeholder="Select service"
+                                            customPlaceholder="Type the service you need"
+                                        />
+                                    </div>
                                     <Textarea data-testid="contact-input-message" required rows={5} placeholder="Describe your requirement *" value={form.message} onChange={update("message")} className="rounded-none border-slate-300" />
                                     {error && <div className="text-sm text-red-600 bg-red-50 border border-red-200 px-3 py-2">{error}</div>}
                                     <button

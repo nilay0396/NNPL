@@ -118,10 +118,11 @@ class EnquiryCreate(BaseModel):
     company: Optional[str] = Field(default=None, max_length=160)
     email: EmailStr
     phone: str = Field(min_length=6, max_length=25)
-    service_required: Optional[str] = Field(default=None, max_length=120)
+    service_required: Optional[str] = Field(default=None, max_length=200)
     message: str = Field(min_length=5, max_length=2000)
     enquiry_type: EnquiryType = "contact"
     source_page: Optional[str] = None
+    details: Optional[dict] = None
 
 
 class Enquiry(BaseModel):
@@ -134,6 +135,7 @@ class Enquiry(BaseModel):
     message: str
     enquiry_type: str
     source_page: Optional[str] = None
+    details: Optional[dict] = None
     status: str = "new"
     created_at: datetime
 
@@ -274,6 +276,11 @@ async def create_enquiry(payload: EnquiryCreate):
     # Best-effort email notification
     to_email = os.environ.get("COMPANY_CONTACT_EMAIL", "info@nilaynarayan.com")
     subject = f"[NN Polychem] New {payload.enquiry_type} enquiry from {payload.name}"
+    details_str = ""
+    if payload.details:
+        details_str = "\nDetails:\n" + "\n".join(
+            f"  {k.replace('_', ' ').title()}: {v}" for k, v in payload.details.items() if v not in (None, "", [])
+        )
     body = (
         f"New enquiry received via website\n\n"
         f"Type: {payload.enquiry_type}\n"
@@ -282,7 +289,8 @@ async def create_enquiry(payload: EnquiryCreate):
         f"Email: {payload.email}\n"
         f"Phone: {payload.phone}\n"
         f"Service: {payload.service_required or '-'}\n"
-        f"Source: {payload.source_page or '-'}\n\n"
+        f"Source: {payload.source_page or '-'}\n"
+        f"{details_str}\n\n"
         f"Message:\n{payload.message}\n"
     )
     asyncio.create_task(send_email_async(to_email, subject, body))

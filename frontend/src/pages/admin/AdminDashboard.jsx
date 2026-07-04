@@ -335,6 +335,21 @@ function Enquiries({ items, onUpdate }) {
                                             {e.service_required}
                                         </div>
                                     )}
+                                    {e.details && Object.keys(e.details).length > 0 && (
+                                        <details className="mt-2">
+                                            <summary className="text-[10px] font-mono uppercase tracking-[0.15em] text-[#047857] cursor-pointer">
+                                                + {Object.keys(e.details).length} details
+                                            </summary>
+                                            <ul className="mt-1.5 space-y-0.5">
+                                                {Object.entries(e.details).map(([k, v]) => (
+                                                    <li key={k} className="text-[11px] text-slate-600">
+                                                        <span className="font-mono text-slate-400">{k.replace(/_/g, " ")}:</span>{" "}
+                                                        <span className="text-slate-800">{String(v)}</span>
+                                                    </li>
+                                                ))}
+                                            </ul>
+                                        </details>
+                                    )}
                                 </td>
                                 <td className="px-4 py-3 align-top"><StatusPill status={e.status} /></td>
                                 <td className="px-4 py-3 align-top">

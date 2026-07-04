@@ -11,6 +11,12 @@ export default function Products() {
     const [q, setQ] = useState("");
     const [activeCat, setActiveCat] = useState("All");
     const [quoteOpen, setQuoteOpen] = useState(false);
+    const [quoteContext, setQuoteContext] = useState(null);
+
+    const openQuote = (ctx = null) => {
+        setQuoteContext(ctx);
+        setQuoteOpen(true);
+    };
 
     useEffect(() => {
         api.get("/products")
@@ -120,7 +126,7 @@ export default function Products() {
                                     </div>
                                     <button
                                         data-testid={`product-enquire-btn-${i}`}
-                                        onClick={() => setQuoteOpen(true)}
+                                        onClick={() => openQuote({ product: p.name })}
                                         className="mt-3 inline-flex items-center justify-center gap-2 h-10 bg-[#047857] text-white text-sm font-semibold hover:bg-[#065F46]"
                                     >
                                         Enquire <ArrowRight className="w-4 h-4" />
@@ -138,7 +144,7 @@ export default function Products() {
                 primaryLabel="Submit Product Enquiry"
                 defaultType="product"
             />
-            <QuoteDialog open={quoteOpen} onOpenChange={setQuoteOpen} defaultType="product" />
+            <QuoteDialog open={quoteOpen} onOpenChange={setQuoteOpen} defaultType="product" context={quoteContext} />
         </>
     );
 }
