@@ -22,20 +22,6 @@ const certs = [
         featured: true,
     },
     {
-        slug: "gpcb-hw",
-        name: "JSPCB Hazardous Waste Authorisation",
-        body: "Jharkhand State Pollution Control Board",
-        type: "Authorisation",
-        standard: "Hazardous & Other Wastes (M & TBM) Rules, 2016",
-    },
-    {
-        slug: "cpcb-coprocessing",
-        name: "CPCB Co-processing Compliance",
-        body: "Central Pollution Control Board",
-        type: "Guideline Compliance",
-        standard: "CPCB Co-processing Guidelines",
-    },
-    {
         slug: "iso-9001",
         name: "ISO 9001:2015",
         body: "Quality Management System · TÜV / BSI",
@@ -114,7 +100,7 @@ export default function Certifications() {
                                 </div>
                             </div>
 
-                            <div className="lg:col-span-5 bg-white border border-slate-200 p-8 md:p-10">
+                            <div className="lg:col-span-5 bg-white border border-slate-200 p-8 md:p-10 flex flex-col">
                                 <div className="nn-eyebrow mb-3">What this covers</div>
                                 <h3 className="font-display text-xl md:text-2xl font-black text-slate-900 tracking-tight leading-tight">
                                     Accredited testing across six sample families.
@@ -143,6 +129,12 @@ export default function Certifications() {
                                         </div>
                                     </div>
                                     <ShieldCheck className="w-8 h-8 text-[#047857]" />
+                                </div>
+                                <div className="mt-6" data-testid="nabl-cert-slot">
+                                    <div className="font-mono text-[10px] uppercase tracking-[0.2em] text-slate-500 mb-2">
+                                        NABL Certificate · TC-17291
+                                    </div>
+                                    <CertImageSlot slug="nabl" />
                                 </div>
                             </div>
                         </div>

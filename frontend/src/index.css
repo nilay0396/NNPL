@@ -326,3 +326,15 @@ button img, a img, [role="button"] img, [data-clickable-img] {
 @media (prefers-reduced-motion: reduce) {
     .nn-marquee-track { animation: none; }
 }
+
+/* Facility gallery — auto-advance progress bar */
+.nn-facility-progress {
+    transform-origin: left center;
+    animation: nn-progress linear forwards;
+    width: 100%;
+}
+@keyframes nn-progress {
+    from { transform: scaleX(0); }
+    to   { transform: scaleX(1); }
+}
+

@@ -1,9 +1,7 @@
 import { Target, Compass, Wrench, FlaskConical, Truck, Users, Award, Factory } from "lucide-react";
 import PageHero from "../components/site/PageHero";
 import CtaBanner from "../components/site/CtaBanner";
-
-const INFRA_IMG =
-    "https://images.pexels.com/photos/236705/pexels-photo-236705.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940";
+import FacilityGallery from "../components/site/FacilityGallery";
 
 export default function About() {
     return (
@@ -47,18 +45,11 @@ export default function About() {
 
             {/* Infrastructure */}
             <section className="nn-section bg-slate-50 border-y border-slate-200" data-testid="about-infra">
-                <div className="nn-container grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-                    <div className="lg:col-span-6">
-                        <div className="relative">
-                            <img src={INFRA_IMG} alt="Industrial warehouse" className="w-full h-[440px] object-cover" />
-                            <div className="absolute -bottom-6 -right-6 hidden md:block bg-[#0B192C] text-white p-6 w-64">
-                                <div className="nn-eyebrow-light mb-2">Facility</div>
-                                <div className="font-display text-2xl font-black">25 Acres</div>
-                                <div className="text-xs text-slate-300 mt-1">Integrated TSDF + Lab campus</div>
-                            </div>
-                        </div>
+                <div className="nn-container grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+                    <div className="lg:col-span-7">
+                        <FacilityGallery />
                     </div>
-                    <div className="lg:col-span-6">
+                    <div className="lg:col-span-5">
                         <div className="nn-eyebrow mb-3">Infrastructure</div>
                         <h2 className="font-display text-3xl md:text-4xl font-black tracking-tight text-slate-900 leading-[1.1]">
                             A single operational campus — plant, lab and logistics.
