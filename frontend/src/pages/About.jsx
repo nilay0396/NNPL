@@ -100,30 +100,41 @@ export default function About() {
                                 r: "Chief Technology Officer & Managing Consultant",
                                 y: "30+ yrs R&D · 19 patents · 50+ papers",
                                 d: "Ph.D. from IIT (ISM). Former CSIR-Central Institute of Mining & Fuel Research. Expertise across chemical process design, hazardous-waste recycling, precious-metal recovery, high-energetic materials, construction chemicals (SNF & PCE admixtures, waterproofing), refractory binders, polyester / epoxy resins and pharmaceutical intermediates.",
+                                img: "/team/dr-jagdish.png",
                             },
                             {
                                 n: "Mr. Ansul Kumar",
                                 r: "Director — Operations",
                                 y: "Engineering · Manipal University",
                                 d: "Leads company-wide operations across hazardous-waste handling, recycling and disposal protocols, and their conversion into value-added products.",
+                                img: "/team/ansul-kumar.png",
                             },
                             {
                                 n: "Mr. Nilay Kumar",
                                 r: "Director — Strategy & Growth",
                                 y: "MBA · BIT Mesra + IIM Ranchi",
                                 d: "Prior program-leadership experience at Wipro and Microsoft. Drives strategic planning, commercial strategy, governance frameworks and enterprise-level growth.",
+                                img: "/team/nilay-kumar.png",
                             },
                         ].map((l) => (
-                            <div key={l.n} className="nn-card p-8 flex flex-col" data-testid={`leader-${l.n.replace(/\W+/g, "-").toLowerCase()}`}>
-                                <div className="w-16 h-16 bg-[#0B192C] text-emerald-300 font-display font-black text-lg flex items-center justify-center tracking-tight">
-                                    {l.n.split(" ").slice(-2).map((w) => w[0]).join("")}
+                            <div key={l.n} className="nn-card p-0 flex flex-col overflow-hidden" data-testid={`leader-${l.n.replace(/\W+/g, "-").toLowerCase()}`}>
+                                <div className="relative w-full aspect-[4/5] bg-slate-100 overflow-hidden">
+                                    <img
+                                        src={l.img}
+                                        alt={l.n}
+                                        loading="lazy"
+                                        className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-[filter] duration-500"
+                                    />
+                                    <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-[#0B192C]/70 to-transparent" />
+                                    <div className="absolute left-4 bottom-3 font-mono text-[10px] uppercase tracking-[0.2em] text-emerald-300">
+                                        {l.y}
+                                    </div>
                                 </div>
-                                <div className="mt-6 font-display font-bold text-slate-900 text-lg leading-tight">{l.n}</div>
-                                <div className="text-sm text-slate-600 mt-1">{l.r}</div>
-                                <div className="mt-3 font-mono text-[10px] uppercase tracking-[0.2em] text-[#047857]">
-                                    {l.y}
+                                <div className="p-7 flex-1 flex flex-col">
+                                    <div className="font-display font-bold text-slate-900 text-lg leading-tight">{l.n}</div>
+                                    <div className="text-sm text-slate-600 mt-1">{l.r}</div>
+                                    <p className="mt-4 text-sm text-slate-600 leading-relaxed">{l.d}</p>
                                 </div>
-                                <p className="mt-4 text-sm text-slate-600 leading-relaxed">{l.d}</p>
                             </div>
                         ))}
                     </div>
@@ -131,17 +142,27 @@ export default function About() {
                     {/* Management row */}
                     <div className="mt-14">
                         <div className="nn-eyebrow mb-4">Management Team</div>
-                        <div className="nn-grid-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 bg-white">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                             {[
-                                { n: "Mr. Saurabh Kumar Mondal", r: "Head — NABL Laboratory Services" },
-                                { n: "Mr. Ombir Singh", r: "Head — Business Development & Commercial" },
-                                { n: "Mr. Shubham Mandal", r: "Head — Tendering & Contracts" },
-                                { n: "Mr. Ompal Singh", r: "Head — Finance & Accounts" },
+                                { n: "Mr. Sourav Kumar Mondal", r: "Head — NABL Laboratory Services", img: "/team/sourav-kumar-mondal.png" },
+                                { n: "Mr. Ombir Singh", r: "Head — Business Development & Commercial", img: "/team/ombir-singh.png" },
+                                { n: "Mr. Shubham Mandal", r: "Head — Tendering & Contracts", img: "/team/shubham-mandal.png" },
+                                { n: "Mr. Ompal Singh", r: "Head — Finance & Accounts", img: "/team/ompal-singh.png" },
                             ].map((m) => (
-                                <div key={m.n} className="p-6 bg-white">
-                                    <div className="font-display font-bold text-slate-900">{m.n}</div>
-                                    <div className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#047857]">
-                                        {m.r}
+                                <div key={m.n} className="nn-card p-0 overflow-hidden flex flex-col" data-testid={`manager-${m.n.replace(/\W+/g, "-").toLowerCase()}`}>
+                                    <div className="relative w-full aspect-square bg-slate-100 overflow-hidden">
+                                        <img
+                                            src={m.img}
+                                            alt={m.n}
+                                            loading="lazy"
+                                            className="w-full h-full object-cover object-center grayscale hover:grayscale-0 transition-[filter] duration-500"
+                                        />
+                                    </div>
+                                    <div className="p-5">
+                                        <div className="font-display font-bold text-slate-900 text-sm leading-tight">{m.n}</div>
+                                        <div className="mt-1.5 font-mono text-[10px] uppercase tracking-[0.18em] text-[#047857]">
+                                            {m.r}
+                                        </div>
                                     </div>
                                 </div>
                             ))}

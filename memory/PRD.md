@@ -35,6 +35,7 @@ Build a production-ready, modern corporate website for NilayNarayan Polychem LLP
 - [x] Floating WhatsApp (click-to-chat), sticky header "Get Quote", global brochure download
 - [x] Google Maps embed (Ankleshwar placeholder)
 - [x] Seed SMTP placeholders, company contact placeholders ready for real-value drop-in
+- [x] **Feb 2026** — Real leadership & management team photos wired into `/app/frontend/public/team/` and rendered on `About.jsx` (grayscale → color hover). 7 photos: Dr. Jagdish, Ansul Kumar, Nilay Kumar, Sourav Kumar Mondal, Ombir Singh, Shubham Mandal, Ompal Singh. Fixed name spelling "Saurabh" → "Sourav".
 
 ## Testing
 - Regression suite: `pytest /app/backend/tests/test_backend.py` — **22/22 pass**
