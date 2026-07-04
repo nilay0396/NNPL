@@ -51,6 +51,7 @@ Build a production-ready, modern corporate website for NilayNarayan Polychem LLP
 - [x] **Feb 2026** — NN-PlastiFlo Water Reducer: **hidden** from catalog and enquiry dropdown until assets are provided. Backend seed commented, entry preserved for easy re-enable.
 - [x] **Feb 2026** — Contact routing update: Call-Us dropdown reordered (Sales · Operations · Compliance) with corrected numbers. Sales = +91 91994 39902 (also the primary WhatsApp line). Operations = +91 80843 71124. Compliance = +91 82925 84106.
 - [x] **Feb 2026** — Email delivery live via **Emergent-managed Resend**. All enquiry/vendor submissions now email `nilaynarayanpolychem@gmail.com` with the enquirer's email set as `Reply-To`. Verified 202 response from integration proxy on live traffic.
+- [x] **Feb 2026** — Production-readiness hardening pass (see `/app/memory/PRODUCTION_READINESS_REPORT.md`): CORS wildcard+credentials fixed, admin fallback removed, env vars fail-fast, date-fns pinned to 3.6.0, backend test suite expanded to 37 tests with TEST_ prefix + auto-cleanup fixture. Verdict: **GO for production**.
 
 ## Testing
 - Regression suite: `pytest /app/backend/tests/test_backend.py` — **22/22 pass**
