@@ -249,14 +249,15 @@ SEED_PRODUCTS = [
         "tds_url": "/products/nn-395-superplasticizer-tds.pdf",
         "sds_url": "/products/nn-395-superplasticizer-sds.pdf",
     },
-    {
-        "name": "NN-PlastiFlo Water Reducer",
-        "category": "Concrete Admixture",
-        "application": "Lignosulphonate water-reducing admixture / plasticizer",
-        "industry": "Construction, Infrastructure, Precast",
-        "description": "Lignosulphonate based water-reducing plasticizer for improved workability and controlled setting in concrete mixes.",
-        "approvals": "IS 9103 · NCCBM approved",
-    },
+    # NN-PlastiFlo Water Reducer — HIDDEN (Feb 2026) until assets/data are ready. Re-enable by uncommenting.
+    # {
+    #     "name": "NN-PlastiFlo Water Reducer",
+    #     "category": "Concrete Admixture",
+    #     "application": "Lignosulphonate water-reducing admixture / plasticizer",
+    #     "industry": "Construction, Infrastructure, Precast",
+    #     "description": "Lignosulphonate based water-reducing plasticizer for improved workability and controlled setting in concrete mixes.",
+    #     "approvals": "IS 9103 · NCCBM approved",
+    # },
     {
         "name": "NN-CalNit Calcium Nitrate",
         "category": "Industrial Salt",

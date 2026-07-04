@@ -63,7 +63,6 @@ export const PRODUCT_OPTIONS = [
     "NN-RockBond Cement Capsule",
     "NN-RockGrout Resin Capsule",
     "NN-395 Superplasticizer",
-    "NN-PlastiFlo Water Reducer",
     "NN-CalNit Calcium Nitrate",
     "NN-PyroShield STC-I",
     "NN-PyroShield STC-II",

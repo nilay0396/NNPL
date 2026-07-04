@@ -48,6 +48,7 @@ Build a production-ready, modern corporate website for NilayNarayan Polychem LLP
 - [x] **Feb 2026** — NN-AluBond High Alumina Binder: added real product image + gated TDS/SDS downloads (same flow).
 - [x] **Feb 2026** — NN-RockGrout Resin Capsule: added real product image + gated TDS/SDS downloads (same flow).
 - [x] **Feb 2026** — NN-Emul SMO: added real product image + gated TDS/SDS downloads (same flow).
+- [x] **Feb 2026** — NN-PlastiFlo Water Reducer: **hidden** from catalog and enquiry dropdown until assets are provided. Backend seed commented, entry preserved for easy re-enable.
 
 ## Testing
 - Regression suite: `pytest /app/backend/tests/test_backend.py` — **22/22 pass**
