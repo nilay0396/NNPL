@@ -192,7 +192,7 @@ export default function NablLab() {
 
                     <div className="nn-grid-border grid grid-cols-1 md:grid-cols-3 bg-white">
                         {[
-                            { icon: FileCheck2, t: "Regulatory-ready reports", d: "Structured for CPCB / SPCB submissions, CTO renewals and tender filing." },
+                            { icon: FileCheck2, t: "Regulatory-ready reports", d: "Structured for CPCB / JSPCB submissions, CTO renewals and tender filing." },
                             { icon: Microscope, t: "Environmental monitoring support", d: "Ambient air, noise and site-condition monitoring with industrial response." },
                             { icon: Beaker, t: "Waste & water characterisation", d: "Effluent, sludge, soil and water matrices — end-to-end analytical depth." },
                         ].map((w) => (

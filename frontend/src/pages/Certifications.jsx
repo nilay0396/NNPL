@@ -23,7 +23,7 @@ const certs = [
     },
     {
         slug: "gpcb-hw",
-        name: "GPCB Hazardous Waste Authorisation",
+        name: "JSPCB Hazardous Waste Authorisation",
         body: "Jharkhand State Pollution Control Board",
         type: "Authorisation",
         standard: "Hazardous & Other Wastes (M & TBM) Rules, 2016",

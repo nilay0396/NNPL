@@ -22,7 +22,7 @@ const coProcessingScope = [
     "High-calorific liquid & solid waste preparation",
     "Blend design with NABL lab characterisation",
     "Co-processing logistics & AFR handoffs",
-    "CPCB & GPCB co-processing documentation",
+    "CPCB & JSPCB co-processing documentation",
 ];
 
 const recyclingScope = [
@@ -91,7 +91,7 @@ const industries = ["Cement", "Steel", "Refineries", "Chemicals", "Pharma", "Pow
 const regulatory = [
     "Hazardous & Other Wastes (M & TBM) Rules, 2016",
     "CPCB guidelines for co-processing",
-    "SPCB / GPCB operational authorisations",
+    "JSPCB / CPCB operational authorisations",
     "E-manifest & online filing compliance",
     "Form 3 / Form 10 documentation",
 ];

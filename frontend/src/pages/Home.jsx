@@ -41,7 +41,7 @@ const industries = [
 const reasons = [
     {
         title: "Authorised & Compliant",
-        desc: "GPCB / SPCB authorised for hazardous waste handling, storage, transport & disposal.",
+        desc: "JSPCB & CPCB authorised for hazardous waste handling, storage, transport & disposal.",
     },
     {
         title: "Integrated Under One Roof",
@@ -170,7 +170,7 @@ export default function Home() {
                 <div className="relative border-t border-white/10 bg-black/30">
                     <div className="nn-container py-5 flex flex-wrap items-center gap-x-10 gap-y-3 text-[11px] font-mono uppercase tracking-[0.2em] text-slate-400">
                         <span className="text-emerald-300">Accreditations</span>
-                        <span>GPCB Authorised</span>
+                        <span>JSPCB Authorised</span>
                         <span>NABL · ISO/IEC 17025:2017 · TC-17291</span>
                         <span>ISO 9001:2015</span>
                         <span>ISO 14001:2015</span>
@@ -404,7 +404,7 @@ export default function Home() {
                     </div>
                     <div className="nn-grid-border grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 bg-white">
                         {[
-                            { name: "GPCB", sub: "Authorised" },
+                            { name: "JSPCB", sub: "Authorised" },
                             { name: "CPCB", sub: "Compliant" },
                             { name: "NABL", sub: "TC-17291" },
                             { name: "ISO 9001", sub: "2015" },
