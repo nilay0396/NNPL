@@ -331,3 +331,41 @@ def test_client_logo_served(api_client, base_url):
     r = api_client.get(f"{base_url}/clients/iocl.png", timeout=15)
     assert r.status_code == 200
     assert r.headers.get("content-type", "").startswith("image/")
+
+
+
+# =====================================================================
+# Security headers
+# =====================================================================
+@pytest.mark.parametrize("path", ["/api/health", "/api/products"])
+def test_security_headers_present(api_client, base_url, path):
+    r = api_client.get(f"{base_url}{path}", timeout=15)
+    assert r.status_code == 200
+    h = {k.lower(): v for k, v in r.headers.items()}
+    # Permissions-Policy must block display-capture (Screen Capture API)
+    assert "permissions-policy" in h, "Permissions-Policy header missing"
+    assert "display-capture=()" in h["permissions-policy"]
+    # CSP must include frame-ancestors 'none'
+    assert "content-security-policy" in h, "CSP header missing"
+    assert "frame-ancestors 'none'" in h["content-security-policy"]
+    # X-Frame-Options = DENY
+    assert h.get("x-frame-options") == "DENY"
+    # Referrer-Policy = strict-origin-when-cross-origin
+    assert h.get("referrer-policy") == "strict-origin-when-cross-origin"
+    # X-Content-Type-Options = nosniff
+    assert h.get("x-content-type-options") == "nosniff"
+
+
+def test_cors_still_works(api_client, base_url):
+    """Security headers must not break existing CORS behaviour."""
+    r = api_client.options(
+        f"{base_url}/api/enquiries",
+        headers={
+            "Origin": "https://example.com",
+            "Access-Control-Request-Method": "POST",
+            "Access-Control-Request-Headers": "content-type",
+        },
+        timeout=15,
+    )
+    # OPTIONS preflight should succeed (200 or 204)
+    assert r.status_code in (200, 204), r.text

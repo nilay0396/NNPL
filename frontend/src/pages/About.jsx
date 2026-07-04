@@ -140,7 +140,7 @@ export default function About() {
                                 { n: "Mr. Shubham Mandal", r: "Head — Tendering & Contracts", img: "/team/shubham-mandal.png" },
                                 { n: "Mr. Ompal Singh", r: "Head — Finance & Accounts", img: "/team/ompal-singh.png" },
                             ].map((m) => (
-                                <div key={m.n} className="nn-card p-0 overflow-hidden flex flex-col" data-testid={`manager-${m.n.replace(/\W+/g, "-").toLowerCase()}`}>
+                                <div key={m.n} className="nn-card p-0 overflow-hidden flex flex-col" data-testid={`manager-${m.n.replace(/\W+/g, "-").toLowerCase()}`} data-shield="on">
                                     <div className="relative w-full aspect-square bg-slate-100 overflow-hidden">
                                         <img
                                             src={m.img}

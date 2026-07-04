@@ -47,6 +47,7 @@ export default function FacilityGallery() {
         <div
             className="relative"
             data-testid="facility-gallery"
+            data-shield="on"
             onMouseEnter={() => setPaused(true)}
             onMouseLeave={() => setPaused(false)}
         >

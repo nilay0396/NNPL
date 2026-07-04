@@ -87,7 +87,7 @@ export default function Products() {
                             {filtered.map((p, i) => (
                                 <div key={p.id} className="bg-white flex flex-col overflow-hidden" data-testid={`product-card-${i}`}>
                                     {p.image && (
-                                        <div className="relative w-full aspect-[4/3] bg-slate-50 border-b border-slate-200 overflow-hidden">
+                                        <div className="relative w-full aspect-[4/3] bg-slate-50 border-b border-slate-200 overflow-hidden" data-shield="on">
                                             <img
                                                 src={p.image}
                                                 alt={p.name}
