@@ -20,6 +20,7 @@ import QuoteDialog from "../components/site/QuoteDialog";
 import ProcessFlow from "../components/site/ProcessFlow";
 import CtaBanner from "../components/site/CtaBanner";
 import { COMPANY, whatsappHref } from "../lib/company";
+import { downloadBrochure } from "../lib/download";
 
 const HERO_IMG =
     "https://static.prod-images.emergentagent.com/jobs/07dc2c71-76dd-4bb3-b84f-ee529563dce1/images/fa0b84fe426a04210fd17427c272575bcf16386208812eef71f0001ad6434fd0.png";
@@ -147,17 +148,17 @@ export default function Home() {
                                         </div>
                                     ))}
                                 </div>
-                                <a
-                                    href="/brochure.pdf"
-                                    download
+                                <button
+                                    type="button"
+                                    onClick={downloadBrochure}
                                     data-testid="hero-brochure-btn"
-                                    className="flex items-center justify-between px-6 py-4 bg-[#047857] text-white font-semibold text-sm hover:bg-[#059669] transition"
+                                    className="flex items-center justify-between w-full text-left px-6 py-4 bg-[#047857] text-white font-semibold text-sm hover:bg-[#059669] transition"
                                 >
                                     <span className="inline-flex items-center gap-2">
                                         <Download className="w-4 h-4" /> Corporate Brochure
                                     </span>
                                     <span className="font-mono text-xs opacity-80">PDF · 2.9 MB</span>
-                                </a>
+                                </button>
                             </div>
                         </div>
                     </div>

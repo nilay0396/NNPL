@@ -231,3 +231,70 @@ pre,
 [data-debug-wrapper="true"] {
     display: contents !important;
 }
+
+/* Screenshot & content-tampering deterrence — see /lib/screenshotShield.js */
+html.nn-shield-blur body {
+    filter: blur(14px) brightness(0.6);
+    transition: filter 120ms ease;
+}
+html:not(.nn-shield-blur) body {
+    filter: none;
+    transition: filter 220ms ease;
+}
+img, video, canvas {
+    -webkit-user-drag: none;
+    -khtml-user-drag: none;
+    -moz-user-drag: none;
+    -o-user-drag: none;
+    user-drag: none;
+    -webkit-touch-callout: none;
+}
+[data-shield="on"] {
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+}
+[data-shield="on"] img {
+    pointer-events: none;
+}
+
+/* Watermark overlay for confidential media */
+.nn-watermark {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background-image: repeating-linear-gradient(
+        -30deg,
+        transparent 0 90px,
+        rgba(11, 25, 44, 0.06) 90px 92px
+    );
+    display: flex;
+    flex-wrap: wrap;
+    align-content: space-around;
+    justify-content: space-around;
+    overflow: hidden;
+    mix-blend-mode: multiply;
+}
+.nn-watermark span {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(11, 25, 44, 0.35);
+    transform: rotate(-24deg);
+    padding: 4px 6px;
+    white-space: nowrap;
+}
+
+/* Print protection — hide content when printed */
+@media print {
+    body::before {
+        content: "Printing disabled — NilayNarayan Polychem LLP";
+        display: block;
+        padding: 40px;
+        font-family: 'IBM Plex Mono', monospace;
+    }
+    body > *:not(::before) { display: none !important; }
+}

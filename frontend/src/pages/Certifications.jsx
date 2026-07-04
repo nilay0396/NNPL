@@ -146,11 +146,6 @@ export default function Certifications() {
                                 </div>
                             </div>
                         </div>
-
-                        {/* Placeholder image row for NABL certificate scan */}
-                        <div className="mt-8">
-                            <CertImageSlot slug={featured.slug} label="Upload NABL Certificate image → /public/certs/nabl.jpg" wide />
-                        </div>
                     </div>
                 </section>
             )}
@@ -237,13 +232,16 @@ function MetaCell({ label, value, accent = false, wide = false }) {
 /**
  * CertImageSlot — shows the certificate image if uploaded to /public/certs/<slug>.jpg,
  * otherwise shows a dashed placeholder with the upload instruction.
+ * Wrapped in a shield that disables selection, drag and overlays a repeating watermark.
  */
 function CertImageSlot({ slug, label, wide = false }) {
     const src = `/certs/${slug}.jpg`;
     const [failed, setFailed] = useState(false);
+    const watermark = "NILAYNARAYAN POLYCHEM · CONFIDENTIAL";
     return (
         <div
             data-testid={`cert-image-${slug}`}
+            data-shield="on"
             className={`relative border border-dashed border-slate-300 bg-slate-50 overflow-hidden ${
                 wide ? "aspect-[16/6]" : "aspect-[4/3]"
             }`}
@@ -252,7 +250,8 @@ function CertImageSlot({ slug, label, wide = false }) {
                 <img
                     src={src}
                     alt={`${slug} certificate`}
-                    className="absolute inset-0 w-full h-full object-cover"
+                    className="absolute inset-0 w-full h-full object-cover select-none"
+                    draggable={false}
                     onError={() => setFailed(true)}
                 />
             )}
@@ -263,6 +262,13 @@ function CertImageSlot({ slug, label, wide = false }) {
                         Certificate image · placeholder
                     </div>
                     <div className="mt-1 text-[11px] font-mono text-slate-400 break-all">{label}</div>
+                </div>
+            )}
+            {!failed && (
+                <div className="nn-watermark" aria-hidden="true">
+                    {Array.from({ length: 24 }).map((_, i) => (
+                        <span key={i}>{watermark}</span>
+                    ))}
                 </div>
             )}
         </div>

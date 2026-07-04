@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Download } from "lucide-react";
 import { COMPANY, whatsappHref } from "../../lib/company";
+import { downloadBrochure } from "../../lib/download";
 
 export default function Footer() {
     return (
@@ -27,15 +28,15 @@ export default function Footer() {
                             Authorised hazardous waste management, speciality chemicals manufacturing and
                             NABL accredited environmental testing — under one integrated operations roof.
                         </p>
-                        <a
-                            href="/brochure.pdf"
-                            download
+                        <button
+                            type="button"
+                            onClick={downloadBrochure}
                             data-testid="footer-brochure-btn"
                             className="inline-flex items-center gap-2 mt-6 h-10 px-5 bg-white/5 border border-white/15 text-white text-sm font-semibold hover:bg-[#047857] hover:border-[#047857] transition-colors"
                         >
                             <Download className="w-4 h-4" />
                             Download Corporate Brochure
-                        </a>
+                        </button>
                     </div>
 
                     <div className="md:col-span-2">
