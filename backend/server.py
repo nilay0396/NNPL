@@ -187,6 +187,7 @@ class Product(BaseModel):
     industry: str
     description: str
     approvals: Optional[str] = None
+    image: Optional[str] = None
     tds_url: Optional[str] = None
     sds_url: Optional[str] = None
 
@@ -232,6 +233,9 @@ SEED_PRODUCTS = [
         "industry": "Construction, Infrastructure, RMC",
         "description": "Sulphonated Naphthalene Formaldehyde (SNF) based high-range water reducer for high-strength, high-workability concrete.",
         "approvals": "IS 9103 · NCCBM approved",
+        "image": "/products/nn-395-superplasticizer.png",
+        "tds_url": "/products/nn-395-superplasticizer-tds.pdf",
+        "sds_url": "/products/nn-395-superplasticizer-sds.pdf",
     },
     {
         "name": "NN-PlastiFlo Water Reducer",

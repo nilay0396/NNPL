@@ -85,58 +85,74 @@ export default function Products() {
                     ) : (
                         <div className="nn-grid-border grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
                             {filtered.map((p, i) => (
-                                <div key={p.id} className="bg-white p-7 flex flex-col" data-testid={`product-card-${i}`}>
-                                    <div className="flex items-center justify-between mb-6">
-                                        <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#047857]">
-                                            {p.category}
-                                        </span>
-                                        <Package className="w-5 h-5 text-slate-400" />
-                                    </div>
-                                    <h3 className="font-display text-xl font-black text-slate-900 tracking-tight">
-                                        {p.name}
-                                    </h3>
-                                    <p className="mt-3 text-sm text-slate-600 leading-relaxed">{p.description}</p>
-                                    <div className="mt-5 space-y-2 text-xs">
-                                        <div>
-                                            <span className="font-mono uppercase tracking-[0.15em] text-slate-500">Application · </span>
-                                            <span className="text-slate-800">{p.application}</span>
+                                <div key={p.id} className="bg-white flex flex-col overflow-hidden" data-testid={`product-card-${i}`}>
+                                    {p.image && (
+                                        <div className="relative w-full aspect-[4/3] bg-slate-50 border-b border-slate-200 overflow-hidden">
+                                            <img
+                                                src={p.image}
+                                                alt={p.name}
+                                                loading="lazy"
+                                                draggable={false}
+                                                className="w-full h-full object-contain p-4 transition-transform duration-500 hover:scale-105"
+                                            />
+                                            <span className="absolute top-3 left-3 font-mono text-[9px] uppercase tracking-[0.2em] bg-white/90 backdrop-blur px-2 py-1 text-[#047857] border border-emerald-200">
+                                                Batch tested
+                                            </span>
                                         </div>
-                                        <div>
-                                            <span className="font-mono uppercase tracking-[0.15em] text-slate-500">Industry · </span>
-                                            <span className="text-slate-800">{p.industry}</span>
+                                    )}
+                                    <div className="p-7 flex flex-col flex-1">
+                                        <div className="flex items-center justify-between mb-6">
+                                            <span className="font-mono text-[10px] uppercase tracking-[0.2em] text-[#047857]">
+                                                {p.category}
+                                            </span>
+                                            <Package className="w-5 h-5 text-slate-400" />
                                         </div>
-                                        {p.approvals && (
+                                        <h3 className="font-display text-xl font-black text-slate-900 tracking-tight">
+                                            {p.name}
+                                        </h3>
+                                        <p className="mt-3 text-sm text-slate-600 leading-relaxed">{p.description}</p>
+                                        <div className="mt-5 space-y-2 text-xs">
                                             <div>
-                                                <span className="font-mono uppercase tracking-[0.15em] text-slate-500">Approvals · </span>
-                                                <span className="text-[#047857] font-semibold">{p.approvals}</span>
+                                                <span className="font-mono uppercase tracking-[0.15em] text-slate-500">Application · </span>
+                                                <span className="text-slate-800">{p.application}</span>
                                             </div>
-                                        )}
-                                    </div>
-                                    <div className="mt-6 pt-5 border-t border-slate-200 flex gap-2">
+                                            <div>
+                                                <span className="font-mono uppercase tracking-[0.15em] text-slate-500">Industry · </span>
+                                                <span className="text-slate-800">{p.industry}</span>
+                                            </div>
+                                            {p.approvals && (
+                                                <div>
+                                                    <span className="font-mono uppercase tracking-[0.15em] text-slate-500">Approvals · </span>
+                                                    <span className="text-[#047857] font-semibold">{p.approvals}</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                        <div className="mt-6 pt-5 border-t border-slate-200 flex gap-2">
+                                            <button
+                                                type="button"
+                                                onClick={() => openQuote({ product: p.name, docRequested: "TDS", docUrl: p.tds_url || undefined })}
+                                                data-testid={`product-tds-btn-${i}`}
+                                                className="flex-1 inline-flex items-center justify-center gap-2 h-10 border border-slate-300 text-xs font-mono uppercase tracking-[0.15em] text-slate-700 hover:border-[#047857] hover:text-[#047857]"
+                                            >
+                                                <FileText className="w-3.5 h-3.5" /> Request TDS
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() => openQuote({ product: p.name, docRequested: "SDS", docUrl: p.sds_url || undefined })}
+                                                data-testid={`product-sds-btn-${i}`}
+                                                className="flex-1 inline-flex items-center justify-center gap-2 h-10 border border-slate-300 text-xs font-mono uppercase tracking-[0.15em] text-slate-700 hover:border-[#047857] hover:text-[#047857]"
+                                            >
+                                                <FileText className="w-3.5 h-3.5" /> Request SDS
+                                            </button>
+                                        </div>
                                         <button
-                                            type="button"
-                                            onClick={() => openQuote({ product: p.name, docRequested: "TDS" })}
-                                            data-testid={`product-tds-btn-${i}`}
-                                            className="flex-1 inline-flex items-center justify-center gap-2 h-10 border border-slate-300 text-xs font-mono uppercase tracking-[0.15em] text-slate-700 hover:border-[#047857] hover:text-[#047857]"
+                                            data-testid={`product-enquire-btn-${i}`}
+                                            onClick={() => openQuote({ product: p.name })}
+                                            className="mt-3 inline-flex items-center justify-center gap-2 h-10 bg-[#047857] text-white text-sm font-semibold hover:bg-[#065F46]"
                                         >
-                                            <FileText className="w-3.5 h-3.5" /> Request TDS
-                                        </button>
-                                        <button
-                                            type="button"
-                                            onClick={() => openQuote({ product: p.name, docRequested: "SDS" })}
-                                            data-testid={`product-sds-btn-${i}`}
-                                            className="flex-1 inline-flex items-center justify-center gap-2 h-10 border border-slate-300 text-xs font-mono uppercase tracking-[0.15em] text-slate-700 hover:border-[#047857] hover:text-[#047857]"
-                                        >
-                                            <FileText className="w-3.5 h-3.5" /> Request SDS
+                                            Enquire <ArrowRight className="w-4 h-4" />
                                         </button>
                                     </div>
-                                    <button
-                                        data-testid={`product-enquire-btn-${i}`}
-                                        onClick={() => openQuote({ product: p.name })}
-                                        className="mt-3 inline-flex items-center justify-center gap-2 h-10 bg-[#047857] text-white text-sm font-semibold hover:bg-[#065F46]"
-                                    >
-                                        Enquire <ArrowRight className="w-4 h-4" />
-                                    </button>
                                 </div>
                             ))}
                         </div>

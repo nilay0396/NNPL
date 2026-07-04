@@ -141,7 +141,18 @@ export default function QuoteDialog({ open, onOpenChange, defaultType = "quote",
                 details: Object.keys(cleanedDetails).length ? cleanedDetails : null,
             });
             setDone(true);
-            setTimeout(() => onOpenChange(false), 1600);
+            // Gated document download: only after successful enquiry submission.
+            if (context?.docUrl) {
+                const a = document.createElement("a");
+                a.href = context.docUrl;
+                a.download = context.docUrl.split("/").pop() || "";
+                a.target = "_blank";
+                a.rel = "noreferrer";
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            }
+            setTimeout(() => onOpenChange(false), context?.docUrl ? 2600 : 1600);
         } catch (err) {
             setError(formatApiError(err));
         } finally {
@@ -182,8 +193,21 @@ export default function QuoteDialog({ open, onOpenChange, defaultType = "quote",
                         <CheckCircle2 className="w-12 h-12 text-[#047857]" />
                         <h3 className="font-display text-xl font-bold mt-3">Enquiry received</h3>
                         <p className="text-slate-600 text-sm mt-2 max-w-md">
-                            Thank you. Our team will contact you within one business day.
+                            {context?.docUrl
+                                ? `Thank you. Your enquiry has been sent to our team and your ${details.document_requested || "requested document"} download has started.`
+                                : "Thank you. Our team will contact you within one business day."}
                         </p>
+                        {context?.docUrl && (
+                            <a
+                                href={context.docUrl}
+                                target="_blank"
+                                rel="noreferrer"
+                                data-testid="doc-manual-download-link"
+                                className="mt-4 inline-flex items-center gap-2 text-sm text-[#047857] hover:underline font-mono uppercase tracking-[0.15em]"
+                            >
+                                Download didn&rsquo;t start? Click here
+                            </a>
+                        )}
                     </div>
                 ) : (
                     <form onSubmit={submit} className="p-6 space-y-4" data-testid="enquiry-form">
@@ -349,6 +373,11 @@ export default function QuoteDialog({ open, onOpenChange, defaultType = "quote",
                                 {details.document_requested && (
                                     <div className="text-sm bg-emerald-50 border border-emerald-200 text-emerald-900 px-3 py-2" data-testid="doc-request-notice">
                                         Requesting <strong>{details.document_requested}</strong> for <strong>{details.product || "the selected product"}</strong>.
+                                        {context?.docUrl && (
+                                            <div className="mt-1 text-[11px] text-emerald-800/80 font-mono uppercase tracking-[0.14em]">
+                                                Download will begin automatically after you submit this form.
+                                            </div>
+                                        )}
                                     </div>
                                 )}
                                 <FieldLabel label="Product *">
