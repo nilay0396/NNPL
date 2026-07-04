@@ -18,7 +18,6 @@ const navItems = [
     { to: "/products", label: "Products" },
     { to: "/industries", label: "Industries" },
     { to: "/certifications", label: "Certifications" },
-    { to: "/projects", label: "Projects" },
     { to: "/vendor-onboarding", label: "Vendors" },
     { to: "/contact", label: "Contact" },
 ];
