@@ -252,6 +252,9 @@ SEED_PRODUCTS = [
         "industry": "Construction, Wastewater, Rubber & Latex",
         "description": "Industrial grade calcium nitrate available as solid crystals and 60% solution — used as concrete set-accelerator, in effluent treatment and latex processing.",
         "approvals": "NABL-QC batch tested",
+        "image": "/products/nn-calnit-calcium-nitrate.png",
+        "tds_url": "/products/nn-calnit-calcium-nitrate-tds.pdf",
+        "sds_url": "/products/nn-calnit-calcium-nitrate-sds.pdf",
     },
     {
         "name": "NN-PyroShield STC-I",
