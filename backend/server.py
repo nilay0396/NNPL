@@ -29,6 +29,10 @@ JWT_SECRET = os.environ['JWT_SECRET']
 JWT_ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_HOURS = 24
 
+# Admin credentials — required in production, no unsafe fallback
+ADMIN_EMAIL = os.environ['ADMIN_EMAIL']
+ADMIN_PASSWORD = os.environ['ADMIN_PASSWORD']
+
 app = FastAPI(title="NilayNarayan Polychem API")
 api_router = APIRouter(prefix="/api")
 security = HTTPBearer(auto_error=False)
@@ -330,8 +334,8 @@ async def on_startup():
         await db.products.insert_many([dict(x) for x in seeded_products])
     logger.info(f"Reseeded {len(seeded_products)} products.")
 
-    admin_email = os.environ.get("ADMIN_EMAIL", "admin@nilaynarayan.com")
-    admin_password = os.environ.get("ADMIN_PASSWORD", "admin123")
+    admin_email = ADMIN_EMAIL
+    admin_password = ADMIN_PASSWORD
     existing = await db.users.find_one({"email": admin_email})
     if existing is None:
         await db.users.insert_one({
@@ -502,10 +506,17 @@ async def admin_stats(current: dict = Depends(get_current_admin)):
 
 # ---------- Register & CORS ----------
 app.include_router(api_router)
+
+# CORS: never combine "*" with allow_credentials=True (browsers reject).
+# Read explicit origins list; enable credentials only when the list is concrete.
+_raw_origins = os.environ.get('CORS_ORIGINS', '*').strip()
+_origins = [o.strip() for o in _raw_origins.split(',') if o.strip()]
+_allow_credentials = "*" not in _origins
+
 app.add_middleware(
     CORSMiddleware,
-    allow_credentials=True,
-    allow_origins=os.environ.get('CORS_ORIGINS', '*').split(','),
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_credentials=_allow_credentials,
+    allow_origins=_origins,
+    allow_methods=["GET", "POST", "PATCH", "DELETE", "OPTIONS"],
+    allow_headers=["Authorization", "Content-Type"],
 )

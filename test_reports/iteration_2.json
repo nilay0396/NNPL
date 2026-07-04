@@ -1,0 +1,35 @@
+{
+  "summary": "Comprehensive production-readiness re-audit of NilayNarayan Polychem LLP corporate site. Backend: 37/37 pytest tests pass (health, product catalog shape/hidden-PlastiFlo/image+tds+sds, 6 enquiry types incl. XSS + invalid variations, vendor create + invalid email, login happy/wrong-pw/unknown-email, /auth/me guarded, malformed/expired/wrong-role JWT rejected, admin list & stats & PATCH incl. unknown-id & invalid-status & unauth, brochure & TDS & client logo static served). CORS hardening verified: no Access-Control-Allow-Credentials header emitted when CORS_ORIGINS='*'. Live Resend email dispatch confirmed in backend logs ('Email sent to nilaynarayanpolychem@gmail.com — id=...' fired within 1s after each enquiry POST). Frontend E2E: Home hero+headline visible; WhatsApp href = https://wa.me/919199439902?text=...; Call-Us dropdown shows Sales(+91 91994 39902) → Operations(+91 80843 71124) → Compliance(+91 82925 84106) in exact order; ClientMarquee renders 18 logo elements (9 unique x2). /products loads all 9 products with real images loaded (naturalWidth>0), 'BATCH TESTED' badges present, NN-PlastiFlo absent. TDS gate on NN-395: enquiry dialog opens with emerald notice ('Requesting TDS for NN-395 Superplasticizer.' + 'Download will begin automatically after you submit this form.'), form submit triggers Playwright download event to /products/nn-395-superplasticizer-tds.pdf. /contact submit → 'Enquiry received' success screen. /vendor-onboarding submit → 'Application received' success screen. /about shows real portraits for Dr. Jagdish, Ansul Kumar, Nilay Kumar + management team (Sourav, Ombir, Shubham, Ompal) — all images loaded. /industries shows 9 real client logo PNGs (IOCL, Tata-MPL, BCCL, DVC, Indane, Indian Railways, Technip, ACC, GAIL) plus Maithon fallback text tile. /projects returns 404 NotFound. /admin/dashboard without login correctly redirects to /admin/login. Admin login → dashboard shows Overview (12 enquiries, 2 vendors, 4 enquiry types); Enquiries tab lists all rows with per-row native select — PATCH via UI on TEST_contact_ui successfully flipped status to 'in_progress' (badge updates in place). Hero brochure button triggers blob download of NNPL_Company_Profile_Brochure.pdf. All 10 navigable pages return 200 with ZERO console errors.",
+  "backend_issues": {
+    "critical": [],
+    "minor": []
+  },
+  "frontend_issues": {
+    "ui_bugs": [],
+    "integration_issues": [],
+    "design_issues": [
+      {"screen": "Admin dashboard", "issues": ["Two logout controls exist (admin-logout-top on overview, admin-logout-btn in sidebar). Redundant but not blocking — flagged in prev iteration."]}
+    ]
+  },
+  "test_report_links": [
+    "/app/backend/tests/test_backend.py",
+    "/app/backend/tests/conftest.py",
+    "/app/test_reports/pytest/pytest_results.xml"
+  ],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "server.py CORS block (lines 507-522): correctly disables allow_credentials when '*' is in origins list. For true production, prefer setting CORS_ORIGINS to explicit comma-separated origin list to enable credentialed requests (currently credentials are disabled since env has '*').",
+    "server.py still uses deprecated @app.on_event('startup') pattern; migrate to FastAPI lifespan context (already flagged, non-blocking).",
+    "Frontend still stores JWT in localStorage (nn_admin_token); for defense-in-depth against XSS consider httpOnly cookie strategy (already flagged, non-blocking).",
+    "server.py is ~523 lines — approaching threshold for splitting into models/auth/routers modules; still manageable.",
+    "Email dispatch is fire-and-forget (best-effort with logger.error on failure). Consider persisting delivery_status on the enquiry document so admin can see failed sends. Non-blocking."
+  ],
+  "updated_files": [],
+  "success_rate": {"backend": "100%", "frontend": "100%"},
+  "test_credentials": "admin@nilaynarayan.com / NN@dmin2025 — verified working (from /app/memory/test_credentials.md).",
+  "seed_data_creation": "During UI runs created 3 TEST_ enquiries (TEST_contact_ui, TEST_email_flow, TEST_ui_tds_flow) and 1 TEST_ vendor (TEST_Vendor_UI Co). The session-scoped cleanup fixture in /app/backend/tests/conftest.py removes all TEST_-prefixed docs from MongoDB at start and end of pytest run — a final pytest execution was performed post-UI-tests to sweep them. Non-TEST prefixed entries visible in admin dashboard ('Test User', 'Nilay Kumar', 'QA', 'QA Test') are pre-existing from earlier iterations, not created by this run.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Backend + frontend hot-reload; no restarts needed. Full regression: pytest /app/backend/tests/ -v --junitxml=/app/test_reports/pytest/pytest_results.xml (37 tests, ~7s). BASE_URL auto-read from /app/frontend/.env. Preview URL: https://hazwaste-solutions.preview.emergentagent.com. Emergent-managed Resend proxy is live — every enquiry submission delivers a real email to nilaynarayanpolychem@gmail.com (user is aware). All interactive elements have data-testid; core testids: nav-*, header-phone-{sales|operations|compliance}, hero-*, client-marquee, marquee-logo-*, product-card-*, request-tds/request-sds, enquiry-input-*, enquiry-submit-btn, contact-*, vendor-*, admin-login-*, admin-nav-*, enquiry-row-*, enquiry-status-*. CORS test caveat: with CORS_ORIGINS='*', browser CORS response includes Allow-Origin '*' but omits Allow-Credentials (which is correct behavior when credentials=false). If deploying to prod with credentialed auth (cookie-based), swap '*' for explicit comma-separated origin list in backend/.env — code auto-enables allow_credentials in that path.",
+  "rca of the issue": "No blocking issues found. All 37 backend tests + full frontend E2E flow pass. Site is production-ready per the audit checklist."
+}
