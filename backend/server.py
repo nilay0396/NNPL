@@ -269,6 +269,9 @@ SEED_PRODUCTS = [
         "industry": "Structural Steel, Infrastructure, Refineries",
         "description": "Metal-oxide intumescent coating providing passive fire protection to structural steel and industrial installations.",
         "approvals": "NABL-QC batch tested",
+        "image": "/products/nn-pyroshield-stc-i.png",
+        "tds_url": "/products/nn-pyroshield-stc-i-tds.pdf",
+        "sds_url": "/products/nn-pyroshield-stc-i-sds.pdf",
     },
     {
         "name": "NN-PyroShield STC-II",
