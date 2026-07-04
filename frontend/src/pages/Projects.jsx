@@ -15,7 +15,7 @@ const cases = [
     {
         tag: "Cement Co-processing",
         title: "AFR blend program with a leading cement plant",
-        sector: "Cement · Western India",
+        sector: "Cement · North India",
         volume: "8,500 MT alt-fuel",
         problem: "Plant required a consistent, calorific-qualified alternate fuel stream with full CPCB documentation from a single source.",
         solution: "NABL characterisation + blend design + co-processing logistics executed by NN Polychem under annual contract.",

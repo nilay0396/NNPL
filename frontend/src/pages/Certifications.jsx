@@ -29,11 +29,11 @@ const certs = [
         standard: "ISO 9001:2015",
     },
     {
-        slug: "iso-14001",
-        name: "ISO 14001:2015",
-        body: "Environmental Management · TÜV / BSI",
-        type: "Management System",
-        standard: "ISO 14001:2015",
+        slug: "iso-22241",
+        name: "ISO 22241",
+        body: "Diesel Exhaust Fluid (AUS-32) Quality Standard",
+        type: "Product Standard",
+        standard: "ISO 22241",
     },
     {
         slug: "iso-45001",

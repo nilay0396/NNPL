@@ -428,7 +428,7 @@ export default function QuoteDialog({ open, onOpenChange, defaultType = "quote",
                                             data-testid="field-pincode"
                                             value={details.delivery_pincode}
                                             onChange={setD("delivery_pincode")}
-                                            placeholder="e.g. 826010"
+                                            placeholder="e.g. 828109"
                                             className="rounded-none h-11 border-slate-300"
                                         />
                                     </FieldLabel>

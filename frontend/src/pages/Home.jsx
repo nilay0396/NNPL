@@ -50,7 +50,7 @@ const reasons = [
     },
     {
         title: "Government & Industrial Track Record",
-        desc: "Executed tenders for PSUs and large industrial clusters across Western India.",
+        desc: "Executed tenders for PSUs, cement majors and large industrial clusters across India.",
     },
     {
         title: "End-to-End Execution",
@@ -174,7 +174,7 @@ export default function Home() {
                         <span>JSPCB Authorised</span>
                         <span>NABL · ISO/IEC 17025:2017 · TC-17291</span>
                         <span>ISO 9001:2015</span>
-                        <span>ISO 14001:2015</span>
+                        <span>ISO 22241</span>
                         <span>ISO 45001:2018</span>
                         <span>CPCB Compliant</span>
                     </div>
@@ -412,7 +412,7 @@ export default function Home() {
                             { name: "CPCB", sub: "Compliant" },
                             { name: "NABL", sub: "TC-17291" },
                             { name: "ISO 9001", sub: "2015" },
-                            { name: "ISO 14001", sub: "2015" },
+                            { name: "ISO 22241", sub: "Diesel Exhaust Fluid" },
                             { name: "ISO 45001", sub: "2018" },
                         ].map((c) => (
                             <div key={c.name} className="p-6 flex flex-col items-start gap-4">
