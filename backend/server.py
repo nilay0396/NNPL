@@ -201,6 +201,9 @@ SEED_PRODUCTS = [
         "industry": "Mining, Coal, Power, Logistics",
         "description": "Poly-surfactant polymer dust suppressant engineered for open-cast coal mines, haul roads, transfer points and stockpile faces.",
         "approvals": "NABL-QC batch tested",
+        "image": "/products/nn-dustguard-pspp.png",
+        "tds_url": "/products/nn-dustguard-pspp-tds.pdf",
+        "sds_url": "/products/nn-dustguard-pspp-sds.pdf",
     },
     {
         "name": "NN-Emul SMO",

@@ -42,6 +42,7 @@ Build a production-ready, modern corporate website for NilayNarayan Polychem LLP
 - [x] **Feb 2026** — NN-395 Superplasticizer: added real product image + gated TDS/SDS downloads. Files at `/app/frontend/public/products/`. Product schema extended with `image` field. Download triggers automatically only after the enquiry form is successfully submitted (which also emails the request to the company).
 - [x] **Feb 2026** — NN-CalNit Calcium Nitrate: added real product image + gated TDS/SDS downloads (same flow as NN-395).
 - [x] **Feb 2026** — NN-RockBond Cement Capsule: added real product image + gated TDS/SDS downloads (same flow).
+- [x] **Feb 2026** — NN-DustGuard PSPP: added real product image + gated TDS/SDS downloads (same flow).
 
 ## Testing
 - Regression suite: `pytest /app/backend/tests/test_backend.py` — **22/22 pass**
