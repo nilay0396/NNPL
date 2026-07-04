@@ -156,7 +156,7 @@ export default function Home() {
                                     <span className="inline-flex items-center gap-2">
                                         <Download className="w-4 h-4" /> Corporate Brochure
                                     </span>
-                                    <span className="font-mono text-xs opacity-80">PDF · 2.4 MB</span>
+                                    <span className="font-mono text-xs opacity-80">PDF · 2.9 MB</span>
                                 </a>
                             </div>
                         </div>
