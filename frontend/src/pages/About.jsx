@@ -84,7 +84,7 @@ export default function About() {
                     <h2 className="font-display text-3xl md:text-4xl font-black tracking-tight text-slate-900 leading-[1.1] max-w-3xl">
                         Led by engineers. Backed by industrial veterans.
                     </h2>
-                    <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div className="mt-12 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                         {[
                             {
                                 n: "Dr. Jagdish",
@@ -106,6 +106,13 @@ export default function About() {
                                 y: "MBA · BIT Mesra + IIM Ranchi",
                                 d: "Prior program-leadership experience at Wipro and Microsoft. Drives strategic planning, commercial strategy, governance frameworks and enterprise-level growth.",
                                 img: "/team/nilay-kumar.png",
+                            },
+                            {
+                                n: "Mr. Rudra Narayan Pandey",
+                                r: "Director — Compliance & Regulatory Affairs",
+                                y: "JSPCB · DGMS · NABL · ISO",
+                                d: "Oversees all statutory compliance, regulatory authorizations and renewals across JSPCB, DGMS, NABL and ISO frameworks, ensuring the company's operations remain fully aligned with applicable laws and standards.",
+                                img: "/team/rudra-narayan-pandey.png",
                             },
                         ].map((l) => (
                             <div key={l.n} className="nn-card p-0 flex flex-col overflow-hidden" data-testid={`leader-${l.n.replace(/\W+/g, "-").toLowerCase()}`}>

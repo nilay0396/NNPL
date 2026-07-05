@@ -12,6 +12,14 @@ const LOGO_SLUGS = new Set([
     "technip-energies",
     "acc-cement",
     "gail",
+    "coal-india",
+    "oil-india",
+    "hurl",
+    "titan",
+    "alkem",
+    "glenmark",
+    "microlabs",
+    "zydus",
 ]);
 
 const LOGOS = CLIENTS.filter((c) => LOGO_SLUGS.has(c.slug));

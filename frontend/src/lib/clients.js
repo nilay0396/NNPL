@@ -61,6 +61,54 @@ export const CLIENTS = [
         sector: "Power Generation",
         locations: "Dhanbad",
     },
+    {
+        slug: "coal-india",
+        name: "Coal India Limited",
+        sector: "Coal Mining · PSU",
+        locations: "Pan-India",
+    },
+    {
+        slug: "oil-india",
+        name: "Oil India Limited",
+        sector: "Oil & Gas · PSU",
+        locations: "Assam, Rajasthan",
+    },
+    {
+        slug: "hurl",
+        name: "Hindustan Urvarak & Rasayan Ltd",
+        sector: "Fertilizers · PSU",
+        locations: "Barauni, Sindri, Gorakhpur",
+    },
+    {
+        slug: "titan",
+        name: "Titan Company Limited",
+        sector: "Consumer & Precision Manufacturing",
+        locations: "Hosur, Dehradun",
+    },
+    {
+        slug: "alkem",
+        name: "Alkem Laboratories Ltd",
+        sector: "Pharmaceuticals",
+        locations: "Sikkim, Baddi",
+    },
+    {
+        slug: "glenmark",
+        name: "Glenmark Pharmaceuticals",
+        sector: "Pharmaceuticals",
+        locations: "Baddi, Nashik",
+    },
+    {
+        slug: "microlabs",
+        name: "Micro Labs Limited",
+        sector: "Pharmaceuticals",
+        locations: "Bangalore, Sikkim",
+    },
+    {
+        slug: "zydus",
+        name: "Zydus Lifesciences",
+        sector: "Pharmaceuticals",
+        locations: "Ahmedabad, Sikkim",
+    },
 ];
 
 export const TESTIMONIALS = [
