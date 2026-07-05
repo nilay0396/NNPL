@@ -13,8 +13,8 @@ export const COMPANY = {
     phoneRaw: "+919199439902",
     whatsapp: "919199439902",
     email: "nilaynarayanpolychem@gmail.com",
-    website: "www.nnpolychem.com",
-    websiteUrl: "https://www.nnpolychem.com",
+    website: "nilaynarayanpolychem.in",
+    websiteUrl: "https://nilaynarayanpolychem.in",
     address: {
         line1: "Plot No. D-167 (P), 4-5, Kandra Industrial Area",
         line2: "Govindpur, Dhanbad, Jharkhand – 828109, India",
