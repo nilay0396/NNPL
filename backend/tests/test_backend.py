@@ -369,3 +369,88 @@ def test_cors_still_works(api_client, base_url):
     )
     # OPTIONS preflight should succeed (200 or 204)
     assert r.status_code in (200, 204), r.text
+
+
+# =====================================================================
+# Frontend static hosting via FastAPI (localhost:8001 only)
+# The preview ingress routes non-/api paths to CRA on :3000, so these
+# tests target the local FastAPI process directly where the new
+# StaticFiles mount + SPA-fallback route actually run.
+# =====================================================================
+LOCAL_BACKEND = "http://localhost:8001"
+
+_STATIC_PATHS = [
+    "/", "/index.html", "/about", "/products", "/certifications",
+    "/contact", "/vendor-onboarding", "/admin/login",
+    "/services/nabl-lab", "/services/hazardous-waste",
+]
+
+
+@pytest.mark.parametrize("path", _STATIC_PATHS)
+def test_local_spa_route_has_all_security_headers(api_client, path):
+    r = api_client.get(f"{LOCAL_BACKEND}{path}", timeout=15)
+    assert r.status_code == 200
+    assert r.headers.get("content-type", "").startswith("text/html")
+    # Body ~ 5.5 KB React shell
+    assert 4000 < len(r.content) < 20000, f"Expected SPA shell body, got {len(r.content)} bytes"
+    h = {k.lower(): v for k, v in r.headers.items()}
+    assert h["x-content-type-options"] == "nosniff"
+    assert h["x-frame-options"] == "DENY"
+    assert h["referrer-policy"] == "strict-origin-when-cross-origin"
+    assert "display-capture=()" in h["permissions-policy"]
+    assert "frame-ancestors 'none'" in h["content-security-policy"]
+    assert h["cross-origin-opener-policy"] == "same-origin"
+    assert h["cross-origin-resource-policy"] == "same-site"
+
+
+def test_local_html_shell_cache_control(api_client):
+    r = api_client.get(f"{LOCAL_BACKEND}/", timeout=15)
+    assert r.status_code == 200
+    cc = r.headers.get("cache-control", "").lower()
+    assert "no-store" in cc and "must-revalidate" in cc
+
+
+def test_local_spa_fallback_random_path_returns_index(api_client):
+    r = api_client.get(f"{LOCAL_BACKEND}/some/random/nonexistent/path", timeout=15)
+    assert r.status_code == 200
+    assert r.headers.get("content-type", "").startswith("text/html")
+    assert b"<div id=\"root\">" in r.content
+
+
+def test_local_brochure_pdf_integrity(api_client):
+    r = api_client.get(f"{LOCAL_BACKEND}/brochure.pdf", timeout=30)
+    assert r.status_code == 200
+    assert r.headers.get("content-type") == "application/pdf"
+    assert len(r.content) == 2977860, f"Brochure size mismatch: {len(r.content)}"
+    # Security headers must still be attached to static file responses
+    h = {k.lower(): v for k, v in r.headers.items()}
+    assert h["x-frame-options"] == "DENY"
+    assert "frame-ancestors 'none'" in h["content-security-policy"]
+
+
+def test_local_product_tds_pdf(api_client):
+    r = api_client.get(f"{LOCAL_BACKEND}/products/nn-395-superplasticizer-tds.pdf", timeout=30)
+    assert r.status_code == 200
+    assert r.headers.get("content-type") == "application/pdf"
+    assert len(r.content) > 0
+
+
+def test_local_client_logo_served(api_client):
+    r = api_client.get(f"{LOCAL_BACKEND}/clients/iocl.png", timeout=15)
+    assert r.status_code == 200
+    assert r.headers.get("content-type", "").startswith("image/")
+    h = {k.lower(): v for k, v in r.headers.items()}
+    assert h["x-content-type-options"] == "nosniff"
+
+
+def test_local_api_still_works_alongside_static(api_client):
+    r = api_client.get(f"{LOCAL_BACKEND}/api/health", timeout=15)
+    assert r.status_code == 200
+    assert r.json()["status"] == "healthy"
+
+
+def test_local_head_on_static_route(api_client):
+    """methods=['GET','HEAD'] on the catch-all — HEAD must succeed (not 405)."""
+    r = api_client.head(f"{LOCAL_BACKEND}/about", timeout=15)
+    assert r.status_code == 200
+    assert r.headers.get("x-frame-options") == "DENY"

@@ -1,0 +1,106 @@
+{
+  "summary": "Iteration 6 — REAL HTTP security-header hardening via FastAPI static hosting + SPA fallback end-to-end verified. Backend: pytest 57/57 passing (40 original + 17 new for static hosting). All 7 security headers verified via curl against localhost:8001 on 15 paths (SPA HTML routes, index.html, brochure PDF, product TDS PDF, client PNG, facility JPG, random non-existent path). Cache-Control: no-store, must-revalidate present on every HTML shell response (not on binary assets). SPA fallback returns 200 + text/html + 5,517-byte React shell for arbitrary/deep/nested paths (/some/random/nonexistent/path, /services/nabl-lab, /services/hazardous-waste). Brochure integrity: content-type application/pdf, exactly 2,977,860 bytes, SHA256 identical to /app/frontend/build/brochure.pdf. NN-395 TDS: application/pdf, 901,376 bytes. /api/health still returns healthy JSON. Live email delivery verified — 'Email sent to nilaynarayanpolychem@gmail.com — id=d1a70847-a8df-48f8-ac1d-dcfa9acfddac' logged for the TEST_iter6_contact submission from the browser. Frontend E2E via preview URL (which still routes to CRA :3000 as documented — expected): 8 pages load with zero real console errors (only the benign 'CSP frame-ancestors ignored via meta' warning, which is exactly what this HTTP-header layer solves in production). Contact form → 201, 'Enquiry received' success view rendered. TDS request dialog opens correctly with product pre-selected + emerald 'download will begin automatically' notice. Hero brochure download triggers Playwright download event (filename NNPL_Company_Profile_Brochure.pdf, blob URL, real 2.9 MB PDF fetched from /brochure.pdf). Refresh nested route /services/nabl-lab renders NABL Lab page (h1: 'NABL Accredited Environmental & Industrial Testing.') — SPA fallback works. Admin login (admin@nilaynarayan.com / NN@dmin2025) → /admin/dashboard, 11 total enquiries visible, both TEST_iter6_contact and TEST_iter6_email present in Latest 5. Google Maps iframe embeds successfully (src=google.com/maps?...&output=embed) — outbound iframe not blocked. WhatsApp href = https://wa.me/919199439902..., tel: links = +919199439902/+918084371124/+918292584106, mailto = nilaynarayanpolychem@gmail.com, footer website = https://www.nnpolychem.com/. HEAD requests on catch-all routes return 200 (not 405) as required. VERDICT: PASS.",
+  "backend_issues": {"critical": [], "minor": []},
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "verification_matrix": {
+    "security_headers_curl_localhost_8001": {
+      "/": "all 7 headers present + Cache-Control: no-store, must-revalidate",
+      "/index.html": "all 7 headers present",
+      "/about": "all 7 headers present + Cache-Control: no-store, must-revalidate",
+      "/products": "all 7 headers present + Cache-Control: no-store, must-revalidate",
+      "/certifications": "all 7 headers present + Cache-Control: no-store, must-revalidate",
+      "/contact": "all 7 headers present + Cache-Control: no-store, must-revalidate",
+      "/vendor-onboarding": "all 7 headers present + Cache-Control: no-store, must-revalidate",
+      "/admin/login": "all 7 headers present + Cache-Control: no-store, must-revalidate",
+      "/services/nabl-lab": "all 7 headers present + Cache-Control: no-store, must-revalidate",
+      "/services/hazardous-waste": "all 7 headers present + Cache-Control: no-store, must-revalidate",
+      "/brochure.pdf": "all 7 headers present, content-type application/pdf, content-length 2977860",
+      "/products/nn-395-superplasticizer-tds.pdf": "all 7 headers present, content-type application/pdf, content-length 901376",
+      "/clients/iocl.png": "all 7 headers present, content-type image/png, content-length 51443",
+      "/facility/main-plant.jpg": "all 7 headers present, content-type image/jpeg, content-length 396819",
+      "/some/random/nonexistent/path": "SPA fallback: 200 + text/html + 5517 bytes React shell + all 7 headers + Cache-Control no-store"
+    },
+    "exact_header_values": {
+      "X-Content-Type-Options": "nosniff",
+      "X-Frame-Options": "DENY",
+      "Referrer-Policy": "strict-origin-when-cross-origin",
+      "Permissions-Policy": "display-capture=(), camera=(), microphone=(), geolocation=()",
+      "Content-Security-Policy": "frame-ancestors 'none'",
+      "Cross-Origin-Opener-Policy": "same-origin",
+      "Cross-Origin-Resource-Policy": "same-site"
+    },
+    "spa_fallback": {
+      "random_path_status": 200,
+      "random_path_content_type": "text/html; charset=utf-8",
+      "random_path_size_bytes": 5517,
+      "services_hazardous_waste_status": 200,
+      "services_nabl_lab_status": 200,
+      "body_contains_div_root": true
+    },
+    "cache_control_on_html_shell": "no-store, must-revalidate — present on ALL SPA HTML responses (10 paths tested), NOT present on binary assets (pdf/png/jpg) as intended",
+    "pdf_integrity": {
+      "brochure_size_bytes": 2977860,
+      "brochure_content_type": "application/pdf",
+      "brochure_sha256_matches_build_folder": true,
+      "nn395_tds_size_bytes": 901376,
+      "nn395_tds_content_type": "application/pdf"
+    },
+    "api_still_works": {
+      "GET_api_health_localhost": "200 status:healthy",
+      "GET_api_products_localhost": "9 products returned",
+      "GET_api_health_preview_url": "200 status:healthy",
+      "pytest_57_passed_0_failed": true
+    },
+    "email_delivery": {
+      "browser_contact_submission_triggered_email": true,
+      "backend_log_line": "Email sent to nilaynarayanpolychem@gmail.com — id=d1a70847-a8df-48f8-ac1d-dcfa9acfddac",
+      "resend_http_status": "202 Accepted"
+    },
+    "frontend_e2e_via_preview_url_ingress_routes_to_CRA_3000": {
+      "pages_loaded_no_hard_errors": ["/", "/about", "/products", "/certifications", "/contact", "/vendor-onboarding", "/admin/login", "/services/nabl-lab"],
+      "only_console_message_is_benign_meta_CSP_warning": "The Content Security Policy directive 'frame-ancestors' is ignored when delivered via a <meta> element. — exactly what the new HTTP-header implementation resolves in production",
+      "contact_form_submission_returns_201": true,
+      "contact_success_ui_shown": "Enquiry received",
+      "brochure_download_triggers_pdf_blob": true,
+      "brochure_filename": "NNPL_Company_Profile_Brochure.pdf",
+      "brochure_network_response": "GET /brochure.pdf 200 application/pdf",
+      "nested_route_hard_refresh_renders": true,
+      "nested_route_h1": "NABL Accredited Environmental & Industrial Testing.",
+      "tds_dialog_opens_with_product_preselected": true,
+      "tds_dialog_download_notice_present": true,
+      "admin_login_success": true,
+      "admin_landed_on_dashboard": true,
+      "admin_test_enquiries_visible": true,
+      "google_maps_iframe_embeds": true,
+      "google_maps_iframe_src": "https://www.google.com/maps?q=Nilaynarayan%20Polychem%20LLP...&output=embed",
+      "whatsapp_href": "https://wa.me/919199439902?text=Hello%20NN%20Polychem%2C%20I%20would%20like%20to%20enquire%20about%20your%20services.",
+      "tel_links": ["tel:+919199439902", "tel:+918084371124", "tel:+918292584106"],
+      "mailto": ["mailto:nilaynarayanpolychem@gmail.com"],
+      "footer_website": "https://www.nnpolychem.com/"
+    },
+    "head_method_on_catch_all_route": {
+      "HEAD /about": 200,
+      "HEAD /brochure.pdf": 200,
+      "HEAD /clients/iocl.png": 200,
+      "note": "methods=['GET','HEAD'] on the catch-all route works correctly — no 405 errors on static/SPA paths"
+    },
+    "pytest_summary": "57 passed in 7.51s (40 original + 17 new: 10 test_local_spa_route_has_all_security_headers parametrized + test_local_html_shell_cache_control + test_local_spa_fallback_random_path_returns_index + test_local_brochure_pdf_integrity + test_local_product_tds_pdf + test_local_client_logo_served + test_local_api_still_works_alongside_static + test_local_head_on_static_route)"
+  },
+  "test_report_links": ["/app/backend/tests/test_backend.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "IMPLEMENTATION LOOKS CORRECT — server.py:549-605 mounts /static for build/static and a catch-all @app.api_route('/{full_path:path}', methods=['GET','HEAD']) that (a) refuses to intercept /api/ (raises 404 to keep API precedence explicit), (b) attempts to serve a real file inside build/ using .resolve() with a build_root boundary check (path traversal protection — good), and (c) falls back to the SPA shell with Cache-Control: no-store, must-revalidate.",
+    "MINOR — the api_router GET /health does not auto-derive HEAD, so HEAD /api/health returns 404 (with security headers still applied). This is safe but slightly asymmetric with static routes that respond 200 to HEAD. If HEAD /api/* is ever needed, add methods=['GET','HEAD'] on those endpoints. Not a blocker.",
+    "MINOR — the middleware order is: CORS → security-headers → StaticFiles/routes. Because add_security_headers uses response.headers[k] = v (overwrite), it correctly sets headers on FileResponse from StaticFiles as well as JSONResponse from api_router — verified empirically.",
+    "GOOD — path-traversal defence in spa_fallback uses candidate.resolve() and startswith(build_root) — this correctly prevents ../../etc/passwd-style attacks against the file server.",
+    "INFO — the <meta http-equiv=\"Content-Security-Policy\" content=\"frame-ancestors 'none';\"> tag left in index.html emits a browser console warning ('CSP frame-ancestors ignored when delivered via <meta>'). Now that the real HTTP header does the job, this meta tag is redundant and produces a noisy console error on every page. Consider removing it in the next iteration to keep the console clean. Non-blocking — the real header does the work."
+  ],
+  "updated_files": ["/app/backend/tests/test_backend.py (added 17 new tests for static hosting + SPA fallback + PDF integrity + HEAD support + Cache-Control)"],
+  "success_rate": {"backend": "100% (57/57 pytest)", "frontend": "100% (all 14 review-request items verified)"},
+  "test_credentials": "admin@nilaynarayan.com / NN@dmin2025 — verified working (login → /admin/dashboard)",
+  "seed_data_creation": "conftest.py session fixture cleans up TEST_-prefixed enquiries + vendors from Mongo. One TEST_iter6_contact + one TEST_iter6_email doc created during E2E — visible on dashboard as of test run, will be swept next pytest session.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "The FastAPI static-hosting + SPA-fallback layer is fully working on localhost:8001. All 7 security headers + Cache-Control: no-store on HTML shell verified against 15 curl paths and the pytest suite. In the preview environment (Kubernetes ingress) non-/api paths are still routed to CRA dev :3000, so browser-loaded pages will NOT show the new headers — this is EXPECTED per the review note and confirmed. The new headers will apply automatically when this backend serves the built React SPA in the production Emergent.sh deploy (where the same uvicorn process handles both /api/* and static frontend). One clean-up opportunity for next iteration: remove the now-redundant `<meta http-equiv=\"Content-Security-Policy\" ...>` from /app/frontend/public/index.html since the real HTTP header now covers CSP frame-ancestors — this will silence the 'CSP frame-ancestors ignored via meta' console warning that currently appears once per page.",
+  "verdict": "PASS"
+}

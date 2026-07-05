@@ -7,6 +7,8 @@ load_dotenv(ROOT_DIR / '.env')
 
 from fastapi import FastAPI, APIRouter, HTTPException, Depends, Request
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
+from fastapi.staticfiles import StaticFiles
+from fastapi.responses import FileResponse
 from starlette.middleware.cors import CORSMiddleware
 from motor.motor_asyncio import AsyncIOMotorClient
 from pydantic import BaseModel, Field, EmailStr, ConfigDict
@@ -542,3 +544,62 @@ async def add_security_headers(request, call_next):
     for k, v in _SECURITY_HEADERS.items():
         response.headers[k] = v
     return response
+
+
+# ---------- Frontend static hosting (production) ----------
+# When the React build folder is available at deploy time, mount it so this
+# process serves BOTH /api/* (backend) and everything else (frontend SPA).
+# The security-header middleware above automatically applies to every response
+# (index.html, JS/CSS bundles, brochure PDF, product TDS/SDS, images, etc.).
+FRONTEND_BUILD_DIR = ROOT_DIR.parent / "frontend" / "build"
+
+
+def _spa_index_response() -> FileResponse:
+    index_file = FRONTEND_BUILD_DIR / "index.html"
+    # Never cache the HTML shell so header changes/redeploys are picked up.
+    return FileResponse(
+        str(index_file),
+        media_type="text/html",
+        headers={"Cache-Control": "no-store, must-revalidate"},
+    )
+
+
+if FRONTEND_BUILD_DIR.is_dir():
+    # 1. Serve built asset bundles (JS/CSS/manifest/favicon/*) with strong caching.
+    #    The React build fingerprints files, so long TTLs are safe for /static/*.
+    app.mount(
+        "/static",
+        StaticFiles(directory=str(FRONTEND_BUILD_DIR / "static")),
+        name="static",
+    )
+
+    # 2. Serve every OTHER file that lives at the root of /public and got copied
+    #    into build/ verbatim: brochure.pdf, robots.txt, manifest.json, favicon,
+    #    /products/*.pdf, /clients/*.png, /facility/*.jpg, /team/*.png, /certs/*.
+    @app.api_route("/{full_path:path}", methods=["GET", "HEAD"], include_in_schema=False)
+    async def spa_fallback(full_path: str, request: Request):
+        # Never intercept /api/* — API routes are registered on api_router and
+        # would already have matched before reaching this catch-all.
+        if full_path.startswith("api/"):
+            raise HTTPException(status_code=404, detail="Not found")
+
+        # Try to serve a real file inside build/ first.
+        candidate = FRONTEND_BUILD_DIR / full_path
+        try:
+            candidate = candidate.resolve()
+            build_root = FRONTEND_BUILD_DIR.resolve()
+            if str(candidate).startswith(str(build_root)) and candidate.is_file():
+                return FileResponse(str(candidate))
+        except Exception:
+            pass
+
+        # Otherwise fall back to the SPA shell so React Router can render the route.
+        return _spa_index_response()
+
+    logger.info(f"Frontend build dir mounted from {FRONTEND_BUILD_DIR}")
+else:
+    logger.info(
+        f"Frontend build dir not present ({FRONTEND_BUILD_DIR}); serving API-only. "
+        "In the preview environment the CRA dev server on port 3000 serves the "
+        "frontend via the ingress."
+    )
