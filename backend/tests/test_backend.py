@@ -372,6 +372,69 @@ def test_cors_still_works(api_client, base_url):
 
 
 # =====================================================================
+# Auto-acknowledgement email side-effects (log-based verification)
+# =====================================================================
+import time as _time
+
+
+def _tail_backend_log(match: str, since_ts: float, timeout: float = 6.0):
+    """Poll the supervisor backend log for a matching line since `since_ts`."""
+    for path in ("/var/log/supervisor/backend.err.log", "/var/log/supervisor/backend.out.log"):
+        try:
+            with open(path) as f:
+                lines = f.readlines()
+        except FileNotFoundError:
+            continue
+        end = _time.time() + timeout
+        while _time.time() < end:
+            for ln in lines[-200:]:
+                if match in ln:
+                    return ln
+            _time.sleep(0.5)
+            with open(path) as f:
+                lines = f.readlines()
+    return None
+
+
+def test_auto_ack_email_on_enquiry(api_client, base_url):
+    """After a public enquiry POST, backend must dispatch TWO emails:
+    (a) company notification, (b) acknowledgement to the enquirer."""
+    unique = f"test-ack-{uuid_lib.uuid4().hex[:8]}@example.com" if False else None  # noqa
+    import uuid as _uuid
+    enquirer = f"test-ack-{_uuid.uuid4().hex[:8]}@example.com"
+    since = _time.time()
+    r = api_client.post(f"{base_url}/api/enquiries", json={
+        "name": f"{TEST_PREFIX}ack",
+        "email": enquirer,
+        "phone": "+919999999999",
+        "message": "ack test",
+        "enquiry_type": "contact",
+    }, timeout=15)
+    assert r.status_code == 201
+    ack_line = _tail_backend_log(f"Email sent to {enquirer}", since)
+    company_line = _tail_backend_log("Email sent to nilaynarayanpolychem@gmail.com", since)
+    assert ack_line, "Acknowledgement email to enquirer NOT dispatched"
+    assert company_line, "Company notification email NOT dispatched"
+
+
+def test_auto_ack_email_on_vendor(api_client, base_url):
+    import uuid as _uuid
+    vendor_email = f"test-vendor-{_uuid.uuid4().hex[:8]}@example.com"
+    since = _time.time()
+    r = api_client.post(f"{base_url}/api/vendors", json={
+        "company_name": f"{TEST_PREFIX}ack Vendor",
+        "contact_person": "Rajesh Test",
+        "email": vendor_email,
+        "phone": "+919999999999",
+        "category": "Logistics",
+        "address": "123 Test",
+    }, timeout=15)
+    assert r.status_code == 201
+    ack_line = _tail_backend_log(f"Email sent to {vendor_email}", since)
+    assert ack_line, "Acknowledgement email to vendor NOT dispatched"
+
+
+# =====================================================================
 # Frontend static hosting via FastAPI (localhost:8001 only)
 # The preview ingress routes non-/api paths to CRA on :3000, so these
 # tests target the local FastAPI process directly where the new

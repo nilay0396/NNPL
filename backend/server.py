@@ -412,6 +412,40 @@ async def create_enquiry(payload: EnquiryCreate):
     )
     asyncio.create_task(send_email_async(to_email, subject, body, reply_to=payload.email))
 
+    # Auto-acknowledgement to the enquirer — polite receipt with next steps.
+    ack_subject = "We've received your enquiry — NilayNarayan Polychem LLP"
+    friendly_type = {
+        "quote": "quote request",
+        "product": "product enquiry",
+        "waste_pickup": "hazardous-waste pickup request",
+        "lab_testing": "NABL lab testing enquiry",
+        "sample": "sample request",
+        "contact": "message",
+    }.get(payload.enquiry_type, "enquiry")
+    doc_note = ""
+    if payload.details and payload.details.get("document_requested"):
+        doc_note = (
+            f"You also requested the {payload.details['document_requested']} for "
+            f"{payload.details.get('product', 'the selected product')} — the document "
+            f"has been shared with you via the browser download that started when you "
+            f"submitted the form.\n\n"
+        )
+    ack_body = (
+        f"Dear {payload.name.split()[0] if payload.name.strip() else 'Sir/Madam'},\n\n"
+        f"Thank you for reaching out to NilayNarayan Polychem LLP. We have received your "
+        f"{friendly_type} and our team will get back to you within one business day.\n\n"
+        f"{doc_note}"
+        f"For urgent queries, please contact us on:\n"
+        f"  Sales:      +91 91994 39902 (also on WhatsApp)\n"
+        f"  Operations: +91 80843 71124\n"
+        f"  Email:      nilaynarayanpolychem@gmail.com\n"
+        f"  Website:    https://www.nnpolychem.com\n\n"
+        f"Regards,\n"
+        f"NilayNarayan Polychem LLP\n"
+        f"Plot D-167(P), 4 & 5, Kandra Industrial Area, Govindpur, Dhanbad, Jharkhand – 828109\n"
+    )
+    asyncio.create_task(send_email_async(payload.email, ack_subject, ack_body))
+
     return Enquiry(**{**doc, "created_at": now})
 
 
@@ -440,6 +474,26 @@ async def create_vendor(payload: VendorCreate):
         f"Description:\n{payload.description or '-'}\n"
     )
     asyncio.create_task(send_email_async(to_email, subject, body, reply_to=payload.email))
+
+    # Auto-acknowledgement to the vendor applicant
+    ack_subject = "Vendor application received — NilayNarayan Polychem LLP"
+    ack_body = (
+        f"Dear {payload.contact_person.split()[0] if payload.contact_person.strip() else 'Sir/Madam'},\n\n"
+        f"Thank you for submitting the vendor onboarding form on behalf of "
+        f"{payload.company_name}. We have received your application under the "
+        f"'{payload.category}' category and our procurement team will review it and "
+        f"revert within 3–5 business days.\n\n"
+        f"If you need to attach additional documents (GST certificate, ISO / NABL "
+        f"credentials, capability statement, etc.), please reply to this email.\n\n"
+        f"For urgent queries:\n"
+        f"  Operations: +91 80843 71124\n"
+        f"  Email:      nilaynarayanpolychem@gmail.com\n"
+        f"  Website:    https://www.nnpolychem.com\n\n"
+        f"Regards,\n"
+        f"NilayNarayan Polychem LLP\n"
+        f"Plot D-167(P), 4 & 5, Kandra Industrial Area, Govindpur, Dhanbad, Jharkhand – 828109\n"
+    )
+    asyncio.create_task(send_email_async(payload.email, ack_subject, ack_body))
 
     return Vendor(**{**doc, "created_at": now})
 
