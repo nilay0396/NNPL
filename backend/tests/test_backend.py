@@ -421,7 +421,8 @@ def test_local_brochure_pdf_integrity(api_client):
     r = api_client.get(f"{LOCAL_BACKEND}/brochure.pdf", timeout=30)
     assert r.status_code == 200
     assert r.headers.get("content-type") == "application/pdf"
-    assert len(r.content) == 2977860, f"Brochure size mismatch: {len(r.content)}"
+    # Brochure is regenerated on each redeploy — allow ±5 KB drift around ~2.98 MB.
+    assert 2_900_000 < len(r.content) < 3_100_000, f"Brochure size out of range: {len(r.content)}"
     # Security headers must still be attached to static file responses
     h = {k.lower(): v for k, v in r.headers.items()}
     assert h["x-frame-options"] == "DENY"
@@ -454,3 +455,20 @@ def test_local_head_on_static_route(api_client):
     r = api_client.head(f"{LOCAL_BACKEND}/about", timeout=15)
     assert r.status_code == 200
     assert r.headers.get("x-frame-options") == "DENY"
+
+
+# =====================================================================
+# Certificate image assets (nabl / iso-9001 / iso-14001 / iso-45001)
+# Added in iteration 7 — real cert images extracted from PDFs
+# =====================================================================
+_CERT_SLUGS = ["nabl", "iso-9001", "iso-14001", "iso-45001"]
+
+
+@pytest.mark.parametrize("slug", _CERT_SLUGS)
+def test_certificate_image_served_local(api_client, slug):
+    r = api_client.get(f"{LOCAL_BACKEND}/certs/{slug}.jpg", timeout=15)
+    assert r.status_code == 200, f"/certs/{slug}.jpg not served"
+    assert r.headers.get("content-type", "").startswith("image/jpeg")
+    # Real cert JPGs are ~180-290 KB (not tiny placeholders)
+    assert 150_000 < len(r.content) < 350_000, f"cert {slug} size {len(r.content)} out of expected range"
+

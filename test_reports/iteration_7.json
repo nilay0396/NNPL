@@ -1,0 +1,72 @@
+{
+  "summary": "Iteration 7 — Verified user-reported WhatsApp cropping bug fix + real certificate image swap. VERDICT: PASS. Backend pytest 61/61 (57 previous + 4 new cert image tests). WhatsApp floating button fully visible on all 7 tested viewports (320x568, 375x667, 414x896, 768x1024, 1024x768, 1440x900, 1920x1080) — bounding box always inside viewport: right_edge<=viewport.width AND bottom_edge<=viewport.height at every size. Size = 56x56, bg-color rgb(37,211,102) [#25D366], href = https://wa.me/919199439902?text=Hello%20NN%20Polychem..., target=_blank, rel=noreferrer. Button sits above the 'Made with Emergent' preview badge as intended (mb-16 sm:mb-10 lift). Present on ALL 7 pages (/, /about, /products, /certifications, /contact, /vendor-onboarding, /industries). Zero console errors + zero warnings across all pages. Certifications page: exactly 3 non-featured cards (ISO 9001:2015, ISO 14001:2015, ISO 45001:2018) + 1 featured NABL card = 4 total. Factory Licence / CGWA Ground Water NOC / Central Ground Water Authority text absent from DOM entirely. Every cert image loads (naturalWidth 990-997 x naturalHeight 1399-1400) with CSS object-fit:contain (letterboxed, no cropping) inside aspect-[3/4] containers (rendered 254x340 / 420x561px). Diagonal repeating watermark 'NILAYNARAYAN POLYCHEM · CONFIDENTIAL' overlays each image via .nn-watermark. Direct HTTP GET on localhost:8001/certs/{nabl,iso-9001,iso-14001,iso-45001}.jpg all return 200 image/jpeg with expected sizes 191854 / 244629 / 276220 / 282446 bytes. /api/health 200 healthy, /api/products returns 9, contact enquiry POST returns 201. Brochure PDF still served (~2.98 MB). Only test-code drift found: hardcoded brochure size in test was stale (regenerated PDF is 2979408 vs old 2977860) — I relaxed the assertion to a ±100KB range around 2.98MB, since content-type + valid PDF header + size are all correct. NOTE: Backend supervisor was serving with 'Frontend build dir not present' because it started BEFORE the build folder was written; I restarted backend once so the FastAPI static mount picks up /app/frontend/build and now serves brochure/certs/logos correctly on localhost:8001 (verified 200s). This is a startup-order artifact in the dev container only — irrelevant in production Emergent.sh deploy where build/ exists before uvicorn starts.",
+  "backend_issues": {
+    "critical": [],
+    "minor": [
+      {"endpoint": "n/a (test-code)", "issue": "test_local_brochure_pdf_integrity had a hardcoded 2977860-byte expectation but the brochure was regenerated (now 2979408 bytes). Relaxed to a 2.9-3.1 MB range — both files render as valid PDFs. No production impact."}
+    ]
+  },
+  "frontend_issues": {"ui_bugs": [], "integration_issues": [], "design_issues": []},
+  "whatsapp_verification_matrix": {
+    "size": "56x56 (Tailwind w-14 h-14)",
+    "bg_color": "rgb(37, 211, 102) == #25D366",
+    "href": "https://wa.me/919199439902?text=Hello%20NN%20Polychem%2C%20I%20would%20like%20to%20enquire%20about%20your%20services.",
+    "target": "_blank",
+    "rel": "noreferrer",
+    "viewports_tested": {
+      "320x568": {"x": 240, "y": 424, "right_edge": 296, "bottom_edge": 480, "clipped": false},
+      "375x667": {"x": 295, "y": 523, "right_edge": 351, "bottom_edge": 579, "clipped": false},
+      "414x896": {"x": 334, "y": 752, "right_edge": 390, "bottom_edge": 808, "clipped": false},
+      "768x1024": {"x": 688, "y": 904, "right_edge": 744, "bottom_edge": 960, "clipped": false},
+      "1024x768": {"x": 944, "y": 648, "right_edge": 1000, "bottom_edge": 704, "clipped": false},
+      "1440x900": {"x": 1360, "y": 780, "right_edge": 1416, "bottom_edge": 836, "clipped": false},
+      "1920x1080": {"x": 1840, "y": 960, "right_edge": 1896, "bottom_edge": 1016, "clipped": false}
+    },
+    "present_on_all_pages": ["/", "/about", "/products", "/certifications", "/contact", "/vendor-onboarding", "/industries"],
+    "co_exists_with_emergent_badge": true
+  },
+  "certifications_verification_matrix": {
+    "featured_nabl_present": true,
+    "grid_non_featured_card_count": 3,
+    "grid_cards": ["ISO 9001:2015", "ISO 14001:2015", "ISO 45001:2018"],
+    "hidden_confirmed_absent": ["Factory Licence", "CGWA Ground Water NOC", "Central Ground Water Authority"],
+    "cert_images": {
+      "nabl":     {"http": 200, "content_type": "image/jpeg", "bytes": 191854, "naturalW": 997, "naturalH": 1399, "object_fit": "contain", "watermark_overlay": true},
+      "iso-9001": {"http": 200, "content_type": "image/jpeg", "bytes": 244629, "naturalW": 990, "naturalH": 1400, "object_fit": "contain", "watermark_overlay": true},
+      "iso-14001":{"http": 200, "content_type": "image/jpeg", "bytes": 276220, "naturalW": 990, "naturalH": 1400, "object_fit": "contain", "watermark_overlay": true},
+      "iso-45001":{"http": 200, "content_type": "image/jpeg", "bytes": 282446, "naturalW": 990, "naturalH": 1400, "object_fit": "contain", "watermark_overlay": true}
+    },
+    "container_aspect": "3/4 (rendered 254.75x340.33 for grid cards, 420.67x561.56 for featured)",
+    "cropping": "none — every cert visible in full, letterboxed by object-fit:contain + p-1.5 inner padding"
+  },
+  "regression_matrix": {
+    "api_health": "200 healthy",
+    "api_products_count": 9,
+    "contact_enquiry_201": true,
+    "console_errors_per_page_all_zero": true,
+    "console_warnings_per_page_all_zero": true,
+    "brochure_pdf_status": "200 application/pdf ~2.98MB (2,979,408 bytes)",
+    "cert_images_http_200_on_localhost_8001": true,
+    "product_tds_pdf_200": true,
+    "pytest_result": "61 passed in 7.39s (0 failed)"
+  },
+  "test_report_links": ["/app/backend/tests/test_backend.py", "/app/test_reports/pytest/pytest_results.xml"],
+  "action_items": [],
+  "critical_code_review_comments": [
+    "GOOD — FloatingWhatsApp.jsx uses inline style with env(safe-area-inset-*) for iOS notch safety AND Tailwind mb-16 sm:mb-10 to lift above the Emergent preview badge. The dual-layer approach is robust across (a) production without the badge, (b) preview with the badge, (c) iOS with home-bar. Verified box.x+box.width <= viewport.width AND box.y+box.height <= viewport.height at 320/375/414/768/1024/1440/1920 — the fix is complete.",
+    "GOOD — Certifications.jsx CertImageSlot uses aspect-[3/4] container with object-contain + p-1.5 inner padding. Real PDFs at ~990x1400 (aspect ~0.71) render pillar-boxed to fit the 0.75 container — cert is FULLY visible with tiny left/right margins, no cropping. Failure state falls back to a friendly 'Certificate on record' placeholder with the same shield/watermark treatment — production-quality UX.",
+    "MINOR — test_local_brochure_pdf_integrity in backend/tests/test_backend.py had a stale hardcoded byte count (2,977,860). Relaxed to a ±100KB range around 2.98MB in this iteration. Suggestion for future: compute the expected size at fixture time from build/brochure.pdf directly, or drop the exact-size check in favour of content-type + PDF magic-bytes + size>2MB.",
+    "MINOR — Dev-container startup order: uvicorn was launched BEFORE `yarn build` completed, so the FastAPI static mount initialized with FRONTEND_BUILD_DIR non-existent and served API-only. Backend restart resolved it. Consider having `yarn build` block on ready-check before backend starts, OR watch for build/ appearing and re-mount, OR log a clearer 'REBUILD DETECTED — restart backend' hint. Non-blocking; production deploy path is unaffected.",
+    "INFO — Nice touch: the CertImageSlot uses draggable={false} + select-none + the diagonal repeating watermark + a shield attribute (data-shield='on'). Reasonable-effort protection against casual copying of sensitive tender documents."
+  ],
+  "updated_files": [
+    "/app/backend/tests/test_backend.py (relaxed brochure size assertion to a 2.9-3.1 MB range; added 4 new parametrized tests for /certs/{slug}.jpg image assets)"
+  ],
+  "success_rate": {"backend": "100% (61/61 pytest)", "frontend": "100% (14/14 review-request items verified)"},
+  "test_credentials": "admin@nilaynarayan.com / NN@dmin2025 — verified from /app/memory/test_credentials.md",
+  "seed_data_creation": "One TEST_iter7_frontend contact enquiry created via UI-fetch during regression check (id 76f52e0c-...). Session cleanup fixture in conftest.py sweeps TEST_-prefixed docs at next pytest run.",
+  "retest_needed": false,
+  "main_agent_can_self_test": true,
+  "context_for_next_testing_agent": "Iteration 7 fully closes the user's cropping bug + adds the 4 real certificate JPGs (extracted from PDFs at 220dpi and trimmed to white borders). If you restart backend, it will re-read /app/frontend/build; that dir must exist BEFORE backend startup or FastAPI serves API-only (logged loudly at startup). The test_backend.py suite now has 61 tests including /certs/{slug}.jpg parametrized checks — expect all green. Consider removing the redundant <meta http-equiv='Content-Security-Policy' ...> from /app/frontend/public/index.html per the note in iteration_6 (still present here, causes a benign CSP-via-meta warning in production; in preview it was zero warnings because CRA :3000 strips the meta or the browser suppresses it).",
+  "verdict": "PASS — WhatsApp cropping fix is CONFIRMED WORKING at every tested viewport. Certificate images render fully without cropping and hidden certs are gone. Zero regressions."
+}

@@ -42,18 +42,6 @@ const certs = [
         type: "Management System",
         standard: "ISO 45001:2018",
     },
-    {
-        slug: "factory-licence",
-        name: "Factory Licence",
-        body: "Directorate of Industrial Safety & Health",
-        type: "Statutory Licence",
-    },
-    {
-        slug: "cgwa-noc",
-        name: "CGWA Ground Water NOC",
-        body: "Central Ground Water Authority",
-        type: "NOC",
-    },
 ];
 
 export default function Certifications() {
@@ -235,13 +223,13 @@ function CertImageSlot({ slug }) {
         <div
             data-testid={`cert-image-${slug}`}
             data-shield="on"
-            className="relative border border-dashed border-slate-300 bg-slate-50 overflow-hidden aspect-[4/3]"
+            className="relative border border-dashed border-slate-300 bg-white overflow-hidden aspect-[3/4]"
         >
             {!failed && (
                 <img
                     src={src}
                     alt="Certificate"
-                    className="absolute inset-0 w-full h-full object-cover select-none"
+                    className="absolute inset-0 w-full h-full object-contain object-center select-none p-1.5"
                     draggable={false}
                     onError={() => setFailed(true)}
                 />
