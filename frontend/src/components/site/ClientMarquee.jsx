@@ -43,7 +43,7 @@ export default function ClientMarquee() {
             <div className="nn-container mb-4 flex items-center gap-3">
                 <span className="w-8 h-px bg-emerald-400" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.24em] text-emerald-300">
-                    Trusted by India&rsquo;s largest industrial names
+                    Trusted by 150+ industrial clients · mining · cement · steel · pharma · refineries · power · PSUs
                 </span>
             </div>
 

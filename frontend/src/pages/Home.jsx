@@ -80,6 +80,9 @@ export default function Home() {
                             <div className="flex items-center gap-3 mb-6 nn-reveal">
                                 <span className="w-10 h-px bg-emerald-400" />
                                 <span className="nn-eyebrow-light">Authorised Industrial Operator</span>
+                                <span className="hidden sm:inline-block ml-2 px-2.5 py-1 border border-emerald-400/40 bg-emerald-400/10 text-emerald-300 font-mono text-[10px] tracking-[0.18em] uppercase" data-testid="hero-clients-badge">
+                                    150+ Industrial Clients
+                                </span>
                             </div>
                             <h1
                                 data-testid="hero-headline"

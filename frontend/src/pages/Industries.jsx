@@ -46,8 +46,11 @@ export default function Industries() {
                         <div className="lg:col-span-7">
                             <div className="nn-eyebrow mb-3">Our Clients</div>
                             <h2 className="font-display text-3xl md:text-4xl font-black tracking-tight text-slate-900 leading-[1.1]">
-                                Trusted by PSUs and India&rsquo;s largest industrial names.
+                                Trusted by 150+ industrial clients — PSUs, pharma majors and manufacturing leaders.
                             </h2>
+                            <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.2em] text-[#047857]" data-testid="clients-tagline">
+                                150+ clients · Mining · Cement · Steel · Pharma · Refineries · Power · PSUs
+                            </p>
                         </div>
                         <p className="lg:col-span-5 text-slate-600">
                             A representative selection of active corporate and PSU clients — with
