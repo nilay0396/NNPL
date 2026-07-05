@@ -21,6 +21,26 @@ const SLIDES = [
         title: "High-Temperature Incinerator",
         caption: "Thermal destruction of hazardous waste",
     },
+    {
+        src: "/facility/plastic-processing.jpg",
+        title: "Plastic Waste Processing Plant",
+        caption: "Shredding, extrusion & recycled granule line",
+    },
+    {
+        src: "/facility/ball-mill.jpg",
+        title: "Ball Mill / Crusher Unit",
+        caption: "Size-reduction for downstream recovery streams",
+    },
+    {
+        src: "/facility/ewaste-processing.jpg",
+        title: "E-Waste Processing Plant",
+        caption: "Segregation, dismantling & metal recovery",
+    },
+    {
+        src: "/facility/effluent-treatment.jpg",
+        title: "Effluent Treatment Plant (ETP)",
+        caption: "Washing area, ETP & closed-loop water reuse",
+    },
 ];
 
 const ROTATE_MS = 5000;
@@ -90,7 +110,7 @@ export default function FacilityGallery() {
             </div>
 
             {/* Thumbnails */}
-            <div className="mt-3 grid grid-cols-4 gap-2 md:gap-3">
+            <div className="mt-3 grid grid-cols-4 sm:grid-cols-8 gap-2 md:gap-2.5">
                 {SLIDES.map((s, i) => (
                     <button
                         key={s.src}

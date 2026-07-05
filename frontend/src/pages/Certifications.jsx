@@ -42,6 +42,13 @@ const certs = [
         type: "Management System",
         standard: "ISO 45001:2018",
     },
+    {
+        slug: "startup-india",
+        name: "Startup India Recognition",
+        body: "Department for Promotion of Industry & Internal Trade (DPIIT)",
+        type: "Government Recognition",
+        standard: "DPIIT Startup India",
+    },
 ];
 
 export default function Certifications() {
